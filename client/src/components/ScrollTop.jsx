@@ -1,15 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const ScrollTop = () => {
   return (
     <>
-    
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    
+      <a className="scroll-to-top rounded" href="#page-top">
+        <i className="fas fa-angle-up"></i>
+      </a>
     </>
-  )
-}
+  );
+};
 
-export default ScrollTop
+export default ScrollTop;
