@@ -10,7 +10,7 @@ const Sidebar = () => {
         {/* <!-- Sidebar - Brand --> */}
         <a
           className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="/"
         >
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
@@ -25,7 +25,7 @@ const Sidebar = () => {
 
         {/* <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
-          <a className="nav-link" href="index.html">
+          <a className="nav-link" href="/">
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -79,7 +79,7 @@ const Sidebar = () => {
             aria-controls="collapseUtilities"
           >
             <i className="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+            <span>Project</span>
           </a>
           <div
             id="collapseUtilities"
@@ -88,17 +88,51 @@ const Sidebar = () => {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Custom Utilities:</h6>
-              <a className="collapse-item" href="utilities-color.html">
-                Colors
+              <a className="collapse-item" href="/projects">
+                Projects
               </a>
-              <a className="collapse-item" href="utilities-border.html">
-                Borders
+              <a className="collapse-item" href="/tasks">
+                Tasks
               </a>
-              <a className="collapse-item" href="utilities-animation.html">
-                Animations
+              <a className="collapse-item" href="/clients">
+                Clients
               </a>
-              <a className="collapse-item" href="utilities-other.html">
+              <a className="collapse-item" href="/">
+                Other
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <li className="nav-item">
+          <a
+            className="nav-link collapsed"
+            href="/"
+            data-toggle="collapse"
+            data-target="#collapseInventory"
+            aria-expanded="true"
+            aria-controls="collapseInventory"
+          >
+            <i className="fas fa-fw fa-wrench"></i>
+            <span>Inventory</span>
+          </a>
+          <div
+            id="collapseInventory"
+            className="collapse"
+            aria-labelledby="headingInventory"
+            data-parent="#accordionSidebar"
+          >
+            <div className="bg-white py-2 collapse-inner rounded">
+              <a className="collapse-item" href="/products">
+                Products
+              </a>
+              <a className="collapse-item" href="/category">
+                Category
+              </a>
+              <a className="collapse-item" href="/customers">
+                Customers
+              </a>
+              <a className="collapse-item" href="/">
                 Other
               </a>
             </div>
@@ -169,6 +203,13 @@ const Sidebar = () => {
           </a>
         </li>
 
+        <li className="nav-item">
+          <a className="nav-link" href="tables.html">
+            <i className="fas fa-fw fa-table"></i>
+            <span>Calender</span>
+          </a>
+        </li>
+
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />
 
@@ -179,7 +220,6 @@ const Sidebar = () => {
             id="sidebarToggle"
           ></button>
         </div>
-
       </ul>
     </>
   );
