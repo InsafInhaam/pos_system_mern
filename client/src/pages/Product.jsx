@@ -103,16 +103,16 @@ const Product = () => {
                             <td>{product.quantity}</td>
                             <td>{product.weight}</td>
                             <td>
-                              <a
-                                href="#"
+
+                              <Link
+                                to={"/viewProduct/" + product._id}
                                 className="view"
-                                title="View"
-                                data-toggle="tooltip"
                               >
                                 <i className="material-icons">&#xE417;</i>
-                              </a>
+                              </Link>
+
                               <Link
-                                to={"/editproduct/" + product._id}
+                                to={"/editProduct/" + product._id}
                                 className="edit"
                               >
                                 <i className="material-icons">&#xE254;</i>

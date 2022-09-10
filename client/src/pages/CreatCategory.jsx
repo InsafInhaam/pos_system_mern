@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addProduct } from "../api/product";
+import { addProduct } from "../api/category";
 
 const CreatCategory = () => {
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ const CreatCategory = () => {
       setLoading(true);
       addProduct(state).then((response) => {
         if (response.status === 201) {
-          toast.success("Product created successfully");
+          toast.success("Category created successfully");
           setLoading(false);
         } else {
           toast.error(response.data);
@@ -83,13 +83,13 @@ const CreatCategory = () => {
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        for="product_name"
+                        htmlFor="category_name"
                       >
                          Name
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="product_name"
+                          id="category_name"
                           name="name"
                           placeholder="Name"
                           className="form-control input-md"
@@ -104,14 +104,14 @@ const CreatCategory = () => {
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        for="product_description"
+                        htmlFor="category_description"
                       >
                         Description
                       </label>
                       <div className="col-md-12">
                         <textarea
                           className="form-control"
-                          id="product_description"
+                          id="category_description"
                           name="description"
                           value={description}
                           onChange={handleInputChange}
@@ -125,7 +125,7 @@ const CreatCategory = () => {
                   <div className="row">
 
                   <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" for="color">
+                      <label className="col-md-12 control-label" htmlFor="color">
                         Color
                       </label>
                       <div className="col-md-2">
@@ -143,7 +143,7 @@ const CreatCategory = () => {
                     </div>
 
                     <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" for="filebutton">
+                      <label className="col-md-12 control-label" htmlFor="filebutton">
                         Image
                       </label>
                       <div className="col-md-12">

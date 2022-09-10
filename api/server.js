@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api", require("./routes/product"));
+app.use("/api", require("./routes/category"));
 
 app.listen(PORT, () => {
   console.log("listening on port:" + PORT);

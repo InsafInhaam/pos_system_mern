@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
-import Axios from "axios";
+import { Categories} from "../api/category";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Category = () => {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    Categories().then((response) => {
+      setCategory(response.data);
+    });
+  }, []);
+
   return (
     <>
     
@@ -59,27 +69,21 @@ const Category = () => {
                         <th>
                           Name <i className="fa fa-sort"></i>
                         </th>
-                        <th>Price</th>
+                        <th>Description</th>
                         <th>
-                          Category <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Quantity</th>
-                        <th>
-                          Weight <i className="fa fa-sort"></i>
+                           Color <i className="fa fa-sort"></i>
                         </th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {/* {products?.map((product, key) => {
+                      {category?.map((catItem, key) => {
                         return (
                           <tr key={key}>
                             <td>{key}</td>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.category}</td>
-                            <td>{product.quantity}</td>
-                            <td>{product.weight}</td>
+                            <td>{catItem.name}</td>
+                            <td>{catItem.description}</td>
+                            <td>{catItem.color}</td>
                             <td>
                               <a
                                 href="#"
@@ -108,7 +112,7 @@ const Category = () => {
                             </td>
                           </tr>
                         );
-                      })} */}
+                      })}
                     </tbody>
                   </table>
                   <div className="clearfix">

@@ -9,6 +9,8 @@ import CreateProduct from "./pages/CreateProduct";
 import Projects from "./pages/Projects";
 import CreateProject from "./pages/CreateProject";
 import EditProduct from "./pages/EditProduct";
+import ViewProduct from "./pages/ViewProduct";
+import Category from "./pages/Category";
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
           <Route path="/products" element={<Product />} />
           <Route path="/createproduct" element={<CreateProduct />} />
           <Route path="/editProduct/:id" element={<EditProduct />} />
+          <Route path="/viewProduct/:id" element={<ViewProduct />} />
+
+          {/* category */}
+          <Route path="/category" element={<Category />} />
+          
 
           {/* projects  */}
           <Route path="/projects" element={<Projects />} />
