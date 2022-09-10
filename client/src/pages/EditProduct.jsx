@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
@@ -7,11 +7,16 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addProduct } from "../api/product";
+import { useLocation } from "react-router-dom";
+import { GetProductById } from "../api/product";
 
-const CreateProduct = () => {
+const EditProduct = () => {
+  const location = useLocation();
+  const product_id = location.pathname.split("/")[2];
+  console.log(product_id);
+
   const [loading, setLoading] = useState(false);
-  const [state, setState] = useState({
+  const [product, setProduct] = useState({
     name: "",
     description: "",
     price: "",
@@ -39,28 +44,22 @@ const CreateProduct = () => {
     discount,
     tax,
     dimension,
-  } = state;
+  } = product;
+
+  useEffect(() => {
+    GetProductById(product_id).then((response) => {
+      setProduct(response.data);
+      console.log(response);
+    });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !category || !description || !price || !quantity) {
-      toast.error("Please provide all the required fields");
-    } else {
-      setLoading(true);
-      addProduct(state).then((response) => {
-        if (response.status === 201) {
-          toast.success("Product created successfully");
-          setLoading(false);
-        } else {
-          toast.error(response.data);
-        }
-      });
-    }
   };
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    setProduct({ ...product, [name]: value });
   };
 
   return (
@@ -80,7 +79,7 @@ const CreateProduct = () => {
             {/* <!-- Begin Page Content --> */}
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Product</h1>
+                <h1 className="h3 mb-0 text-gray-800">Edit {name}</h1>
               </div>
               <div>
                 <ToastContainer />
@@ -110,9 +109,8 @@ const CreateProduct = () => {
                           name="name"
                           placeholder="Name"
                           className="form-control input-md"
-                          required=""
                           type="text"
-                          value={name}
+                          value={name || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -130,7 +128,7 @@ const CreateProduct = () => {
                           className="form-control"
                           id="product_description"
                           name="description"
-                          value={description}
+                          value={description || ""}
                           onChange={handleInputChange}
                         ></textarea>
                       </div>
@@ -150,9 +148,8 @@ const CreateProduct = () => {
                           name="price"
                           placeholder=" Price"
                           className="form-control input-md"
-                          required=""
                           type="number"
-                          value={price}
+                          value={price || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -170,7 +167,7 @@ const CreateProduct = () => {
                           id="product_category"
                           name="category"
                           className="form-control"
-                          value={category}
+                          value={category || ""}
                           onChange={handleInputChange}
                         >
                           <option value="0">shoe</option>
@@ -195,9 +192,8 @@ const CreateProduct = () => {
                           name="quantity"
                           placeholder="Quantity"
                           className="form-control input-md"
-                          required=""
                           type="text"
-                          value={quantity}
+                          value={quantity || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -216,15 +212,13 @@ const CreateProduct = () => {
                           name="weight"
                           placeholder=" Weight"
                           className="form-control input-md"
-                          required=""
                           type="number"
-                          value={weight}
+                          value={weight || ""}
                           onChange={handleInputChange}
                         />
                       </div>
                     </div>
                   </div>
-                  
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label
@@ -239,9 +233,8 @@ const CreateProduct = () => {
                           name="color"
                           placeholder="Color"
                           className="form-control input-md"
-                          required=""
                           type="color"
-                          value={color}
+                          value={color || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -260,9 +253,8 @@ const CreateProduct = () => {
                           name="size"
                           placeholder="Size"
                           className="form-control input-md"
-                          required=""
                           type="number"
-                          value={size}
+                          value={size || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -283,9 +275,8 @@ const CreateProduct = () => {
                           name="discount"
                           placeholder="Discount percentage"
                           className="form-control input-md"
-                          required=""
                           type="number"
-                          value={discount}
+                          value={discount || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -304,9 +295,8 @@ const CreateProduct = () => {
                           name="status"
                           placeholder="Status"
                           className="form-control input-md"
-                          required=""
                           type="text"
-                          value={status}
+                          value={status || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -327,9 +317,8 @@ const CreateProduct = () => {
                           name="tax"
                           placeholder="Tax"
                           className="form-control input-md"
-                          required=""
                           type="number"
-                          value={tax}
+                          value={tax || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -348,9 +337,8 @@ const CreateProduct = () => {
                           name="dimension"
                           placeholder="Dimension"
                           className="form-control input-md"
-                          required=""
                           type="text"
-                          value={dimension}
+                          value={dimension || ""}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -403,4 +391,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

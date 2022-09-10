@@ -26,41 +26,41 @@ const Admin = () => {
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Admin</h1>
               </div>
-              <div class="table-responsive">
-                <div class="table-wrapper">
-                  <div class="table-title">
-                    <div class="row">
-                      <div class="col-sm-8">
+              <div className="table-responsive">
+                <div className="table-wrapper">
+                  <div className="table-title">
+                    <div className="row">
+                      <div className="col-sm-8">
                         <h2>
                           Admin <b>Details</b>
                         </h2>
                       </div>
-                      <div class="col-sm-4">
-                        <div class="search-box">
-                          <i class="material-icons">&#xE8B6;</i>
+                      <div className="col-sm-4">
+                        <div className="search-box">
+                          <i className="material-icons">&#xE8B6;</i>
                           <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Search&hellip;"
                           />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <table class="table table-striped table-hover table-bordered">
+                  <table className="table table-striped table-hover table-bordered">
                     <thead>
                       <tr>
                         <th>#</th>
                         <th>
-                          Name <i class="fa fa-sort"></i>
+                          Name <i className="fa fa-sort"></i>
                         </th>
                         <th>Address</th>
                         <th>
-                          City <i class="fa fa-sort"></i>
+                          City <i className="fa fa-sort"></i>
                         </th>
                         <th>Pin Code</th>
                         <th>
-                          Country <i class="fa fa-sort"></i>
+                          Country <i className="fa fa-sort"></i>
                         </th>
                         <th>Actions</th>
                       </tr>
@@ -76,27 +76,27 @@ const Admin = () => {
                         <td>
                           <a
                             href="#"
-                            class="view"
+                            className="view"
                             title="View"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE417;</i>
+                            <i className="material-icons">&#xE417;</i>
                           </a>
                           <a
                             href="#"
-                            class="edit"
+                            className="edit"
                             title="Edit"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE254;</i>
+                            <i className="material-icons">&#xE254;</i>
                           </a>
                           <a
                             href="#"
-                            class="delete"
+                            className="delete"
                             title="Delete"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE872;</i>
+                            <i className="material-icons">&#xE872;</i>
                           </a>
                         </td>
                       </tr>
@@ -110,27 +110,27 @@ const Admin = () => {
                         <td>
                           <a
                             href="#"
-                            class="view"
+                            className="view"
                             title="View"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE417;</i>
+                            <i className="material-icons">&#xE417;</i>
                           </a>
                           <a
                             href="#"
-                            class="edit"
+                            className="edit"
                             title="Edit"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE254;</i>
+                            <i className="material-icons">&#xE254;</i>
                           </a>
                           <a
                             href="#"
-                            class="delete"
+                            className="delete"
                             title="Delete"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE872;</i>
+                            <i className="material-icons">&#xE872;</i>
                           </a>
                         </td>
                       </tr>
@@ -144,27 +144,27 @@ const Admin = () => {
                         <td>
                           <a
                             href="#"
-                            class="view"
+                            className="view"
                             title="View"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE417;</i>
+                            <i className="material-icons">&#xE417;</i>
                           </a>
                           <a
                             href="#"
-                            class="edit"
+                            className="edit"
                             title="Edit"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE254;</i>
+                            <i className="material-icons">&#xE254;</i>
                           </a>
                           <a
                             href="#"
-                            class="delete"
+                            className="delete"
                             title="Delete"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE872;</i>
+                            <i className="material-icons">&#xE872;</i>
                           </a>
                         </td>
                       </tr>
@@ -178,27 +178,27 @@ const Admin = () => {
                         <td>
                           <a
                             href="#"
-                            class="view"
+                            className="view"
                             title="View"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE417;</i>
+                            <i className="material-icons">&#xE417;</i>
                           </a>
                           <a
                             href="#"
-                            class="edit"
+                            className="edit"
                             title="Edit"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE254;</i>
+                            <i className="material-icons">&#xE254;</i>
                           </a>
                           <a
                             href="#"
-                            class="delete"
+                            className="delete"
                             title="Delete"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE872;</i>
+                            <i className="material-icons">&#xE872;</i>
                           </a>
                         </td>
                       </tr>
@@ -212,70 +212,70 @@ const Admin = () => {
                         <td>
                           <a
                             href="#"
-                            class="view"
+                            className="view"
                             title="View"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE417;</i>
+                            <i className="material-icons">&#xE417;</i>
                           </a>
                           <a
                             href="#"
-                            class="edit"
+                            className="edit"
                             title="Edit"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE254;</i>
+                            <i className="material-icons">&#xE254;</i>
                           </a>
                           <a
                             href="#"
-                            class="delete"
+                            className="delete"
                             title="Delete"
                             data-toggle="tooltip"
                           >
-                            <i class="material-icons">&#xE872;</i>
+                            <i className="material-icons">&#xE872;</i>
                           </a>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <div class="clearfix">
-                    <div class="hint-text">
+                  <div className="clearfix">
+                    <div className="hint-text">
                       Showing <b>5</b> out of <b>25</b> entries
                     </div>
-                    <ul class="pagination">
-                      <li class="page-item disabled">
+                    <ul className="pagination">
+                      <li className="page-item disabled">
                         <a href="#">
-                          <i class="fa fa-angle-double-left"></i>
+                          <i className="fa fa-angle-double-left"></i>
                         </a>
                       </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
+                      <li className="page-item">
+                        <a href="#" className="page-link">
                           1
                         </a>
                       </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
+                      <li className="page-item">
+                        <a href="#" className="page-link">
                           2
                         </a>
                       </li>
-                      <li class="page-item active">
-                        <a href="#" class="page-link">
+                      <li className="page-item active">
+                        <a href="#" className="page-link">
                           3
                         </a>
                       </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
+                      <li className="page-item">
+                        <a href="#" className="page-link">
                           4
                         </a>
                       </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
+                      <li className="page-item">
+                        <a href="#" className="page-link">
                           5
                         </a>
                       </li>
-                      <li class="page-item">
-                        <a href="#" class="page-link">
-                          <i class="fa fa-angle-double-right"></i>
+                      <li className="page-item">
+                        <a href="#" className="page-link">
+                          <i className="fa fa-angle-double-right"></i>
                         </a>
                       </li>
                     </ul>

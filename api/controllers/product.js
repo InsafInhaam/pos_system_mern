@@ -37,7 +37,7 @@ exports.update = async (req, res, next) => {
   });
 
   try {
-    res.status(200).json({
+    res.status(201).json({
       status: "updated successfully",
       data: {
         updateProduct,
@@ -52,10 +52,10 @@ exports.update = async (req, res, next) => {
 };
 
 exports.deleteProduct = async (req, res, next) => {
-  await Product.findByIdAndDelete(req.params.id);
+  deletedProducts = await Product.findByIdAndDelete(req.params.id);
 
   try {
-    res.status(204).json({
+    res.status(201).json({
       status: "successfully product deleted",
     });
   } catch (error) {
@@ -66,13 +66,23 @@ exports.deleteProduct = async (req, res, next) => {
   }
 };
 
-exports.getById = async (req, res, next) => {};
+exports.getById = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  try {
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(500).json({
+      status: "Failed",
+      message: error,
+    });
+  }
+};
 
 exports.view = async (req, res, next) => {
   const products = await Product.find();
 
   try {
-    res.status(200).json(products);
+    res.status(201).json(products);
   } catch (error) {
     res.status(500).json({
       status: "Failed",

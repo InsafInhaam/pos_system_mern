@@ -12,10 +12,10 @@ router.route("/product/create").post(create);
 
 router.route("/product/update/:id").post(update);
 
-router.route("/product/delete/:id").post(deleteProduct);
+router.route("/product/delete/:id").delete(deleteProduct);
 
 router.route("/product/").get(view);
 
-router.route("/product/:id").post(getById);
+router.route("/product/:id").get(getById);
 
 module.exports = router;
