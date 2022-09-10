@@ -224,6 +224,7 @@ const CreateProduct = () => {
                       </div>
                     </div>
                   </div>
+                  
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label className="col-md-12 control-label" for="color">
