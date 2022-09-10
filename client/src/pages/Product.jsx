@@ -4,17 +4,28 @@ import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
-import Axios from "axios";
+import { Products, DeleteProduct } from "../api/product";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:5000/api/product/").then((res) => {
-      setProducts(res.data);
-      console.log(res.data);
+    Products().then((response) => {
+      setProducts(response.data);
     });
   }, []);
+
+  const deleteProduct = (id) => {
+    DeleteProduct(id).then((response) => {
+      if (response.status === 201) {
+        toast.success("Product deleted successfully");
+      } else {
+        toast.error("Product deleted failed");
+      }
+    });
+  };
 
   return (
     <>
@@ -38,6 +49,9 @@ const Product = () => {
                   <i className="fas fa-plus-circle fa-sm text-white-50"></i>
                   &nbsp; Create product
                 </a>
+              </div>
+              <div>
+                <ToastContainer />
               </div>
               <div className="table-responsive">
                 <div className="table-wrapper">
@@ -97,19 +111,19 @@ const Product = () => {
                               >
                                 <i className="material-icons">&#xE417;</i>
                               </a>
-                              <a
-                                href="#"
+                              <Link
+                                to={"/editproduct/" + product._id}
                                 className="edit"
-                                title="Edit"
-                                data-toggle="tooltip"
                               >
                                 <i className="material-icons">&#xE254;</i>
-                              </a>
+                              </Link>
+
                               <a
                                 href="#"
                                 className="delete"
                                 title="Delete"
                                 data-toggle="tooltip"
+                                onClick={(e) => deleteProduct(product._id)}
                               >
                                 <i className="material-icons">&#xE872;</i>
                               </a>
