@@ -31,10 +31,15 @@ exports.create = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  const updateProduct = new Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const updateProduct = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: req.body,
+    },
+    {
+      new: true,
+    }
+  );
 
   try {
     res.status(201).json({

@@ -7,6 +7,12 @@ import Sidebar from "../components/Sidebar";
 import { Products, DeleteProduct } from "../api/product";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
+import ToolkitProvider, {
+  Search,
+  CSVExport,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -26,6 +32,64 @@ const Product = () => {
       }
     });
   };
+  const { ExportCSVButton } = CSVExport;
+
+  const { SearchBar } = Search;
+
+  const columns = [
+    {
+      dataField: "#",
+      text: " ID",
+      sort: true,
+    },
+    {
+      dataField: "name",
+      text: " Name",
+      sort: true,
+    },
+    {
+      dataField: "price",
+      text: " Price",
+      sort: true,
+    },
+    {
+      dataField: "category",
+      text: " category",
+      sort: true,
+    },
+    {
+      dataField: "quantity",
+      text: " quantity",
+      sort: true,
+    },
+    {
+      dataField: "_id",
+      text: "View",
+      formatter: (cellContent, row) => (
+        <Link to={"/viewProduct/" + row._id} className="view">
+          <i className="material-icons">&#xE417;</i>
+        </Link>
+      ),
+    },
+    {
+      dataField: "_id",
+      text: "Edit",
+      formatter: (cellContent, row) => (
+        <Link to={"/editProduct/" + row._id} className="edit">
+          <i className="material-icons">&#xE254;</i>
+        </Link>
+      ),
+    },
+    {
+      dataField: "_id",
+      text: "Delete",
+      formatter: (cellContent, row) => (
+        <a href="#" className="delete" onClick={(e) => deleteProduct(row._id)}>
+          <i className="material-icons">&#xE872;</i>
+        </a>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -41,7 +105,7 @@ const Product = () => {
             {/* <!-- Begin Page Content --> */}
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Admin</h1>
+                <h1 className="h3 mb-0 text-gray-800">Products</h1>
                 <a
                   href="/createproduct"
                   className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
@@ -57,124 +121,43 @@ const Product = () => {
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
-                      <div className="col-sm-8">
+                      <div className="col-md-12">
                         <h2>
                           Product <b>Details</b>
                         </h2>
                       </div>
-                      <div className="col-sm-4">
-                        <div className="search-box">
-                          <i className="material-icons">&#xE8B6;</i>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search&hellip;"
+                    </div>
+                  </div>
+                  <ToolkitProvider
+                    keyField="id"
+                    data={products}
+                    columns={columns}
+                    search
+                    exportCSV
+                  >
+                    {(props) => (
+                      <div>
+                        <div className="d-flex align-items-center justify-content-between search-export-col">
+                          <SearchBar
+                            {...props.searchProps}
+                            className="form-control mb-0"
                           />
+                          <ExportCSVButton
+                            {...props.csvProps}
+                            className="btn btn-primary"
+                          >
+                            Export CSV!!
+                          </ExportCSVButton>
                         </div>
+
+                        <hr />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          pagination={paginationFactory()}
+                        />
                       </div>
-                    </div>
-                  </div>
-                  <table className="table table-striped table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>
-                          Name <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Price</th>
-                        <th>
-                          Category <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Quantity</th>
-                        <th>
-                          Weight <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {products?.map((product, key) => {
-                        return (
-                          <tr key={key}>
-                            <td>{key}</td>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.category}</td>
-                            <td>{product.quantity}</td>
-                            <td>{product.weight}</td>
-                            <td>
-
-                              <Link
-                                to={"/viewProduct/" + product._id}
-                                className="view"
-                              >
-                                <i className="material-icons">&#xE417;</i>
-                              </Link>
-
-                              <Link
-                                to={"/editProduct/" + product._id}
-                                className="edit"
-                              >
-                                <i className="material-icons">&#xE254;</i>
-                              </Link>
-
-                              <a
-                                href="#"
-                                className="delete"
-                                title="Delete"
-                                data-toggle="tooltip"
-                                onClick={(e) => deleteProduct(product._id)}
-                              >
-                                <i className="material-icons">&#xE872;</i>
-                              </a>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text">
-                      Showing <b>5</b> out of <b>25</b> entries
-                    </div>
-                    <ul className="pagination">
-                      <li className="page-item disabled">
-                        <a href="#">
-                          <i className="fa fa-angle-double-left"></i>
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a href="#" className="page-link">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          4
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          5
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          <i className="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                    )}
+                  </ToolkitProvider>
                 </div>
               </div>
             </div>

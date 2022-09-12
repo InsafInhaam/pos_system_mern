@@ -10,6 +10,9 @@
   top: 45%;
   left: 55%;
 }
+.search-export-col label {
+  margin-bottom: 0;
+}
 
 /* table styles */
 .table-responsive {

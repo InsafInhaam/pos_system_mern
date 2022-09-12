@@ -4,7 +4,7 @@ import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
-import { Categories} from "../api/category";
+import { Categories } from "../api/category";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -19,8 +19,7 @@ const Category = () => {
 
   return (
     <>
-    
-    <div id="wrapper">
+      <div id="wrapper">
         {/* <!-- Sidebar --> */}
         <Sidebar />
 
@@ -32,7 +31,7 @@ const Category = () => {
             {/* <!-- Begin Page Content --> */}
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Admin</h1>
+                <h1 className="h3 mb-0 text-gray-800">Categories</h1>
                 <a
                   href="/createproduct"
                   className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
@@ -71,7 +70,7 @@ const Category = () => {
                         </th>
                         <th>Description</th>
                         <th>
-                           Color <i className="fa fa-sort"></i>
+                          Color <i className="fa fa-sort"></i>
                         </th>
                         <th>Actions</th>
                       </tr>
@@ -163,18 +162,17 @@ const Category = () => {
           </div>
 
           {/* <!-- Footer --> */}
-            <Footer />
+          <Footer />
         </div>
       </div>
 
       {/* <!-- Scroll to Top Button--> */}
-      <ScrollTop/>
+      <ScrollTop />
 
       {/* <!-- Logout Modal--> */}
       <LogoutModel />
-
     </>
-  )
-}
+  );
+};
 
-export default Category
+export default Category;

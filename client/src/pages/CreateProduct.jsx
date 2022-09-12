@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
@@ -8,9 +8,11 @@ import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../api/product";
-
+import { Categories } from "../api/category";
+f;
 const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
+  const [fetchcategory, setFetchCategory] = useState([]);
   const [state, setState] = useState({
     name: "",
     description: "",
@@ -62,6 +64,12 @@ const CreateProduct = () => {
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
+
+  useEffect(() => {
+    Categories().then((response) => {
+      setFetchCategory(response.data);
+    });
+  }, []);
 
   return (
     <>
@@ -173,10 +181,9 @@ const CreateProduct = () => {
                           value={category}
                           onChange={handleInputChange}
                         >
-                          <option value="0">shoe</option>
-                          <option value="1">phone</option>
-                          <option value="2">laptop</option>
-                          <option value="3">clothes</option>
+                          {fetchcategory?.map((fetchcat, key) => {
+                            return <option value={key}>{fetchcat.name}</option>;
+                          })}
                         </select>
                       </div>
                     </div>
@@ -224,7 +231,7 @@ const CreateProduct = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label

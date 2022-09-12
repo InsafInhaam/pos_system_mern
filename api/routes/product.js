@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route("/product/create").post(create);
 
-router.route("/product/update/:id").post(update);
+router.route("/product/update/:id").put(update);
 
 router.route("/product/delete/:id").delete(deleteProduct);
 
