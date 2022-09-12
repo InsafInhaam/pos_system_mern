@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../api/product";
 import { Categories } from "../api/category";
-f;
 const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const [fetchcategory, setFetchCategory] = useState([]);
