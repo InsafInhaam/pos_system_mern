@@ -11,6 +11,8 @@ import CreateProject from "./pages/CreateProject";
 import EditProduct from "./pages/EditProduct";
 import ViewProduct from "./pages/ViewProduct";
 import Category from "./pages/Category";
+import Client from "./pages/Client";
+import CreateClient from "./pages/CreateClient";
 
 function App() {
   return (
@@ -32,11 +34,14 @@ function App() {
 
           {/* category */}
           <Route path="/category" element={<Category />} />
-          
 
           {/* projects  */}
           <Route path="/projects" element={<Projects />} />
           <Route path="/createproject" element={<CreateProject />} />
+
+          {/* clients */}
+          <Route path="/clients" element={<Client />} />
+          <Route path="/createclient" element={<CreateClient />} />
         </Routes>
       </Router>
     </>

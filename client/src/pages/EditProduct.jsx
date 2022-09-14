@@ -8,7 +8,7 @@ import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import { GetProductById } from "../api/product";
+import { GetProductById, updateProduct } from "../api/product";
 
 const EditProduct = () => {
   const location = useLocation();
@@ -55,6 +55,19 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name || !category || !description || !price || !quantity) {
+      toast.error("Please provide all the required fields");
+    } else {
+      setLoading(true);
+      updateProduct(product_id, product).then((response) => {
+        if (response.status === 201) {
+          toast.success("Product updated successfully");
+          setLoading(false);
+        } else {
+          toast.error(response.data);
+        }
+      });
+    }
   };
 
   const handleInputChange = (e) => {

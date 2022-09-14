@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "./assets/img/logo.png";
 
 const Sidebar = () => {
   return (
@@ -12,12 +13,10 @@ const Sidebar = () => {
           className="sidebar-brand d-flex align-items-center justify-content-center"
           href="/"
         >
-          <div className="sidebar-brand-icon rotate-n-15">
-            <i className="fas fa-laugh-wink"></i>
+          <div className="sidebar-brand-icon">
+            <img src={logo} alt="" className="w-100" />
           </div>
-          <div className="sidebar-brand-text mx-3">
-            SB Admin <sup>2</sup>
-          </div>
+          <div className="sidebar-brand-text mx-3">ININ Technologies</div>
         </a>
 
         {/* <!-- Divider --> */}

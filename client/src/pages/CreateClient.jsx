@@ -7,10 +7,8 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addProduct } from "../api/product";
-import { Categories } from "../api/category";
 
-const CreateProduct = () => {
+const CreateClient = () => {
   const [loading, setLoading] = useState(false);
   const [fetchcategory, setFetchCategory] = useState([]);
   const [state, setState] = useState({
@@ -45,31 +43,25 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !category || !description || !price || !quantity) {
-      toast.error("Please provide all the required fields");
-    } else {
-      setLoading(true);
-      addProduct(state).then((response) => {
-        if (response.status === 201) {
-          toast.success("Product created successfully");
-          setLoading(false);
-        } else {
-          toast.error(response.data);
-        }
-      });
-    }
+    // if (!name || !category || !description || !price || !quantity) {
+    //   toast.error("Please provide all the required fields");
+    // } else {
+    //   setLoading(true);
+    //   addProduct(state).then((response) => {
+    //     if (response.status === 201) {
+    //       toast.success("Client created successfully");
+    //       setLoading(false);
+    //     } else {
+    //       toast.error(response.data);
+    //     }
+    //   });
+    // }
   };
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-
-  useEffect(() => {
-    Categories().then((response) => {
-      setFetchCategory(response.data);
-    });
-  }, []);
 
   return (
     <>
@@ -88,13 +80,13 @@ const CreateProduct = () => {
             {/* <!-- Begin Page Content --> */}
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Product</h1>
+                <h1 className="h3 mb-0 text-gray-800">Create client</h1>
               </div>
               <div>
                 <ToastContainer />
               </div>
               <form
-                className="form-horizontal p-3 shadow-lg mb-5"
+                className="form-horizontal border p-3 shadow-lg mb-5"
                 onSubmit={handleSubmit}
               >
                 {loading && (
@@ -166,7 +158,7 @@ const CreateProduct = () => {
                       </div>
                     </div>
 
-                    <div className="form-group col-md-6">
+                    {/* <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
                         htmlFor="product_categorie"
@@ -186,7 +178,7 @@ const CreateProduct = () => {
                           })}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="row">
                     <div className="form-group col-md-6">
@@ -410,4 +402,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default CreateClient;
