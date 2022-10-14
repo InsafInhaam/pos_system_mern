@@ -75,46 +75,7 @@ const ViewProduct = ({ productId }) => {
                           <div className="tab-pane active" id="pic-1">
                             <img src={`/uploads/products/${image}`} />
                           </div>
-                          {/* <div className="tab-pane" id="pic-2">
-                            <img src="http://placekitten.com/400/252" />
-                          </div>
-                          <div className="tab-pane" id="pic-3">
-                            <img src="http://placekitten.com/400/252" />
-                          </div>
-                          <div className="tab-pane" id="pic-4">
-                            <img src="http://placekitten.com/400/252" />
-                          </div>
-                          <div className="tab-pane" id="pic-5">
-                            <img src="http://placekitten.com/400/252" />
-                          </div> */}
                         </div>
-                        {/* <ul className="preview-thumbnail nav nav-tabs">
-                          <li className="active">
-                            <a data-target="#pic-1" data-toggle="tab">
-                              <img src="http://placekitten.com/200/126" />
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-2" data-toggle="tab">
-                              <img src="http://placekitten.com/200/126" />
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-3" data-toggle="tab">
-                              <img src="http://placekitten.com/200/126" />
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-4" data-toggle="tab">
-                              <img src="http://placekitten.com/200/126" />
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-5" data-toggle="tab">
-                              <img src="http://placekitten.com/200/126" />
-                            </a>
-                          </li>
-                        </ul> */}
                       </div>
                       <div className="details col-md-6">
                         <h3 className="product-title">{name}</h3>
@@ -133,8 +94,9 @@ const ViewProduct = ({ productId }) => {
                           current price: <span>Rs.{price}</span>
                         </h4>
                         <p className="vote">
-                          <strong>91%</strong> of buyers enjoyed this product!{" "}
-                          <strong>(87 votes)</strong>
+                          Category : <strong>{category}</strong>
+                          &nbsp;&nbsp;&nbsp;&nbsp; Quantity :
+                          <strong>{quantity}</strong>
                         </p>
                         <h5 className="sizes">
                           sizes:
@@ -145,55 +107,34 @@ const ViewProduct = ({ productId }) => {
                           >
                             {size}
                           </span>
-                          {/* <span
-                            className="size"
-                            data-toggle="tooltip"
-                            title="medium"
-                          >
-                            m
-                          </span>
-                          <span
-                            className="size"
-                            data-toggle="tooltip"
-                            title="large"
-                          >
-                            l
-                          </span>
-                          <span
-                            className="size"
-                            data-toggle="tooltip"
-                            title="xtra large"
-                          >
-                            xl
-                          </span> */}
                         </h5>
                         <h5 className="colors">
                           colors:
-                          {/* <span
-                            className="color orange not-available"
-                            data-toggle="tooltip"
-                            title="Not In store"
-                          /> */}
                           <span
                             className="color"
                             style={{ background: `${color}` }}
                           />
-                          {/* <span className="color blue" /> */}
                         </h5>
-                        {/* <div className="action">
-                          <button
-                            className="add-to-cart btn btn-default"
-                            type="button"
+                        <h5 className="sizes">
+                          Weight:
+                          <span
+                            className="size"
+                            data-toggle="tooltip"
+                            title="small"
                           >
-                            add to cart
-                          </button>
-                          <button
-                            className="like btn btn-default"
-                            type="button"
+                            {weight}
+                          </span>
+                        </h5>
+                        <h5 className="sizes">
+                          Dimension:
+                          <span
+                            className="size"
+                            data-toggle="tooltip"
+                            title="small"
                           >
-                            <span className="fa fa-heart" />
-                          </button>
-                        </div> */}
+                            {dimension}
+                          </span>
+                        </h5>
                       </div>
                     </div>
                   </div>
