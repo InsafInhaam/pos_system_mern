@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Footer from "../components/Footer";
-import LogoutModel from "../components/LogoutModel";
-import Navbar from "../components/Navbar";
-import ScrollTop from "../components/ScrollTop";
-import Sidebar from "../components/Sidebar";
-import { useLocation } from "react-router-dom";
 import { GetProductById } from "../api/product";
 
 const ViewProduct = ({ productId }) => {
-  // const location = useLocation();
-  // const productId = location.pathname.split("/")[2];
-
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -46,7 +37,6 @@ const ViewProduct = ({ productId }) => {
   useEffect(() => {
     GetProductById(productId).then((response) => {
       setProduct(response.data);
-      // console.log(response);
     });
   }, [productId]);
 
