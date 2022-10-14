@@ -21,7 +21,7 @@ const Client = () => {
     Clients().then((response) => {
       setClients(response.data);
     });
-  }, []);
+  }, [clients]);
 
   const deleteClient = (id) => {
     DeleteClient(id).then((response) => {
@@ -83,9 +83,9 @@ const Client = () => {
       dataField: "_id",
       text: "Delete",
       formatter: (cellContent, row) => (
-        <a href="#" className="delete" onClick={(e) => deleteClient(row._id)}>
+        <Link to="#" className="delete" onClick={(e) => deleteClient(row._id)}>
           <i className="material-icons">&#xE872;</i>
-        </a>
+        </Link>
       ),
     },
   ];
@@ -105,13 +105,13 @@ const Client = () => {
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Clients</h1>
-                <a
-                  href="/createclient"
-                  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                <Link
+                  to="/createClient"
+                  className="d-none d-sm-inline-block btn btn-ht btn-br btn-bg btn-sm btn-primary shadow-sm"
                 >
                   <i className="fas fa-plus-circle fa-sm text-white-50"></i>
                   &nbsp; Create client
-                </a>
+                </Link>
               </div>
               <div>
                 <ToastContainer />
@@ -143,7 +143,7 @@ const Client = () => {
                           />
                           <ExportCSVButton
                             {...props.csvProps}
-                            className="btn btn-primary"
+                            className="btn btn-ht btn-br btn-bg btn-primary"
                           >
                             Export CSV!!
                           </ExportCSVButton>

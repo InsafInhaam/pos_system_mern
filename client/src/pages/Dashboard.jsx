@@ -4,6 +4,7 @@ import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -25,13 +26,13 @@ const Dashboard = () => {
               {/* <!-- Page Heading --> */}
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-                <a
-                  href="/"
-                  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                <Link
+                  to="/"
+                  className="d-none d-sm-inline-block btn btn-ht btn-br btn-bg btn-sm btn-primary shadow-sm"
                 >
-                  <i className="fas fa-download fa-sm text-white-50"></i>{" "}
+                  <i className="fas fa-download fa-sm text-white-50"></i> &nbsp;
                   Generate Report
-                </a>
+                </Link>
               </div>
 
               {/* <!-- Content Row --> */}

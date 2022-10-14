@@ -7,60 +7,62 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addClient } from "./../api/client";
 
 const CreateClient = () => {
   const [loading, setLoading] = useState(false);
-  const [fetchcategory, setFetchCategory] = useState([]);
-  const [state, setState] = useState({
+  const [client, setClient] = useState({
     name: "",
-    description: "",
-    price: "",
-    category: "",
-    quantity: "",
-    weight: "",
-    color: "",
-    size: "",
-    status: "",
-    discount: "",
-    tax: "",
-    dimension: "",
+    email: "",
+    phone: "",
+    bussinessName: "",
+    position: "",
+    bussinessAddress: "",
+    bussinessEmail: "",
+    bussinessPhone: "",
+    gender: "",
   });
 
   const {
     name,
-    description,
-    price,
-    category,
-    quantity,
-    weight,
-    color,
-    size,
-    status,
-    discount,
-    tax,
-    dimension,
-  } = state;
+    email,
+    phone,
+    bussinessName,
+    position,
+    bussinessAddress,
+    bussinessEmail,
+    bussinessPhone,
+    gender,
+  } = client;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!name || !category || !description || !price || !quantity) {
-    //   toast.error("Please provide all the required fields");
-    // } else {
-    //   setLoading(true);
-    //   addProduct(state).then((response) => {
-    //     if (response.status === 201) {
-    //       toast.success("Client created successfully");
-    //       setLoading(false);
-    //     } else {
-    //       toast.error(response.data);
-    //     }
-    //   });
-    // }
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !bussinessName ||
+      !bussinessAddress ||
+      !bussinessEmail ||
+      !bussinessPhone
+    ) {
+      toast.error("Please provide all the required fields");
+    } else {
+      setLoading(true);
+      addClient(client).then((response) => {
+        if (response.status === 201) {
+          toast.success("Client created successfully");
+          setLoading(false);
+        } else {
+          toast.error(response.data);
+        }
+      });
+    }
   };
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    setClient({ ...client, [name]: value });
   };
 
   return (
@@ -98,15 +100,12 @@ const CreateClient = () => {
                 <fieldset>
                   <div className="row">
                     <div className="form-group col-md-6">
-                      <label
-                        className="col-md-12 control-label"
-                        htmlFor="product_name"
-                      >
+                      <label className="col-md-12 control-label" htmlFor="name">
                         Name
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="product_name"
+                          id="name"
                           name="name"
                           placeholder="Name"
                           className="form-control input-md"
@@ -121,103 +120,63 @@ const CreateClient = () => {
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="product_description"
+                        htmlFor="phone"
                       >
-                        Description
+                        Phone
                       </label>
                       <div className="col-md-12">
-                        <textarea
-                          className="form-control"
-                          id="product_description"
-                          name="description"
-                          value={description}
+                        <input
+                          id="phone"
+                          name="phone"
+                          placeholder=" Phone"
+                          className="form-control input-md"
+                          required=""
+                          type="number"
+                          value={phone}
                           onChange={handleInputChange}
-                        ></textarea>
+                        />
                       </div>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="product_price"
+                        htmlFor="available_email"
                       >
-                        Price
+                        Email
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="product_price"
-                          name="price"
-                          placeholder=" Price"
+                          id="available_email"
+                          name="email"
+                          placeholder="Email"
                           className="form-control input-md"
                           required=""
-                          type="number"
-                          value={price}
+                          type="email"
+                          value={email}
                           onChange={handleInputChange}
                         />
                       </div>
                     </div>
 
-                    {/* <div className="form-group col-md-6">
-                      <label
-                        className="col-md-12 control-label"
-                        htmlFor="product_categorie"
-                      >
-                        Category
-                      </label>
-                      <div className="col-md-12">
-                        <select
-                          id="product_category"
-                          name="category"
-                          className="form-control"
-                          value={category}
-                          onChange={handleInputChange}
-                        >
-                          {fetchcategory?.map((fetchcat, key) => {
-                            return <option value={key}>{fetchcat.name}</option>;
-                          })}
-                        </select>
-                      </div>
-                    </div> */}
-                  </div>
-                  <div className="row">
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="available_quantity"
+                        htmlFor="bussinessName"
                       >
-                        Quantity
+                        Bussiness name
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="available_quantity"
-                          name="quantity"
-                          placeholder="Quantity"
+                          id="bussinessName"
+                          name="bussinessName"
+                          placeholder=" bussiness name"
                           className="form-control input-md"
                           required=""
                           type="text"
-                          value={quantity}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group col-md-6">
-                      <label
-                        className="col-md-12 control-label"
-                        htmlFor="product_weight"
-                      >
-                        Weight
-                      </label>
-                      <div className="col-md-12">
-                        <input
-                          id="product_weight"
-                          name="weight"
-                          placeholder=" Weight"
-                          className="form-control input-md"
-                          required=""
-                          type="number"
-                          value={weight}
+                          value={bussinessName}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -228,19 +187,19 @@ const CreateClient = () => {
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="color"
+                        htmlFor="position"
                       >
-                        Color
+                        Position
                       </label>
-                      <div className="col-md-2">
+                      <div className="col-md-12">
                         <input
-                          id="color"
-                          name="color"
-                          placeholder="Color"
+                          id="position"
+                          name="position"
+                          placeholder="Position"
                           className="form-control input-md"
                           required=""
-                          type="color"
-                          value={color}
+                          type="position"
+                          value={position}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -249,19 +208,62 @@ const CreateClient = () => {
                     <div className="form-group col-md-6 ">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="product_size"
+                        htmlFor="bussinessAddress"
                       >
-                        Size
+                        Bussiness address
+                      </label>
+                      <div className="col-md-12">
+                        <textarea
+                          id="bussinessAddress"
+                          name="bussinessAddress"
+                          placeholder="Bussiness address"
+                          className="form-control input-md"
+                          required=""
+                          value={bussinessAddress}
+                          onChange={handleInputChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="form-group col-md-6">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="bussinessEmail"
+                      >
+                        Bussiness email
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="product_size"
-                          name="size"
-                          placeholder="Size"
+                          id="bussinessEmail"
+                          name="bussinessEmail"
+                          placeholder="Bussiness email"
+                          className="form-control input-md"
+                          required=""
+                          type="email"
+                          value={bussinessEmail}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group col-md-6">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="bussinessPhone"
+                      >
+                        Bussiness phone
+                      </label>
+                      <div className="col-md-12">
+                        <input
+                          id="bussinessPhone"
+                          name="bussinessPhone"
+                          placeholder="Bussiness phone"
                           className="form-control input-md"
                           required=""
                           type="number"
-                          value={size}
+                          value={bussinessPhone}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -272,93 +274,31 @@ const CreateClient = () => {
                     <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="percentage_discount"
+                        htmlFor="gender"
                       >
-                        Discount percentage
+                        Gender
                       </label>
                       <div className="col-md-12">
-                        <input
-                          id="percentage_discount"
-                          name="discount"
-                          placeholder="Discount percentage"
-                          className="form-control input-md"
-                          required=""
-                          type="number"
-                          value={discount}
+                        <select
+                          id="gender"
+                          name="gender"
+                          className="form-control"
+                          value={gender}
                           onChange={handleInputChange}
-                        />
+                        >
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="not_specified">
+                            Rather not specified
+                          </option>
+                        </select>
                       </div>
                     </div>
-
-                    <div className="form-group col-md-6">
+                    {/* <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
-                        htmlFor="product_status"
+                        htmlFor="filebutton"
                       >
-                        Status
-                      </label>
-                      <div className="col-md-12">
-                        <input
-                          id="product_status"
-                          name="status"
-                          placeholder="Status"
-                          className="form-control input-md"
-                          required=""
-                          type="text"
-                          value={status}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="form-group col-md-6">
-                      <label
-                        className="col-md-12 control-label"
-                        htmlFor="product_tax"
-                      >
-                        Tax
-                      </label>
-                      <div className="col-md-12">
-                        <input
-                          id="product_tax"
-                          name="tax"
-                          placeholder="Tax"
-                          className="form-control input-md"
-                          required=""
-                          type="number"
-                          value={tax}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group col-md-6">
-                      <label
-                        className="col-md-12 control-label"
-                        htmlFor="product_dimension"
-                      >
-                        Dimension
-                      </label>
-                      <div className="col-md-12">
-                        <input
-                          id="product_dimension"
-                          name="dimension"
-                          placeholder="Dimension"
-                          className="form-control input-md"
-                          required=""
-                          type="text"
-                          value={dimension}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* <div className="row">
-                    <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" htmlFor="filebutton">
                         Image
                       </label>
                       <div className="col-md-12">
@@ -369,14 +309,15 @@ const CreateClient = () => {
                           type="file"
                         />
                       </div>
-                    </div>
-                  </div> */}
+                    </div> */}
+                  </div>
+
                   <div className="form-group col-md-6 pl-0">
                     <div className="col-md-12">
                       <button
                         id="singlebutton"
                         name="singlebutton"
-                        className="btn btn-primary"
+                        className="btn btn-ht btn-br btn-bg btn-primary"
                         type="submit"
                       >
                         Submit

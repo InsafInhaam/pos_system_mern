@@ -1,17 +1,23 @@
 const Product = require("../models/Product");
-// const multer = require("multer");
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, callback) => {
-//     callback(null, "./client/public/uploads/");
-//   },
-//   filename: (req, file, callback) => {
-//     callback(null, file.originalname);
-//   },
-// });
 
 exports.create = async (req, res, next) => {
-  const product = new Product(req.body);
+  const product = new Product({
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    quantity: req.body.quantity,
+    weight: req.body.weight,
+    color: req.body.color,
+    size: req.body.size,
+    status: req.body.status,
+    discount: req.body.discount,
+    tax: req.body.tax,
+    dimension: req.body.dimension,
+    image: req.file.originalname,
+  });
+
+  console.log(req.file);
 
   try {
     const newProduct = await product.save();

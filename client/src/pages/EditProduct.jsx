@@ -9,13 +9,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import { GetProductById, updateProduct } from "../api/product";
+import { Categories } from "../api/category";
 
 const EditProduct = () => {
   const location = useLocation();
   const product_id = location.pathname.split("/")[2];
-  console.log(product_id);
+  // console.log(product_id);
 
   const [loading, setLoading] = useState(false);
+  const [fetchcategory, setFetchCategory] = useState([]);
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -49,9 +51,15 @@ const EditProduct = () => {
   useEffect(() => {
     GetProductById(product_id).then((response) => {
       setProduct(response.data);
-      console.log(response);
+      // console.log(response);
     });
-  }, []);
+  }, [product_id]);
+
+  useEffect(() => {
+    Categories().then((response) => {
+      setFetchCategory(response.data);
+    });
+  }, [fetchcategory]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -183,10 +191,13 @@ const EditProduct = () => {
                           value={category || ""}
                           onChange={handleInputChange}
                         >
-                          <option value="0">shoe</option>
-                          <option value="1">phone</option>
-                          <option value="2">laptop</option>
-                          <option value="3">clothes</option>
+                          {fetchcategory?.map((fetchcat, key) => {
+                            return (
+                              <option value={fetchcat.name} key={key}>
+                                {fetchcat.name}
+                              </option>
+                            );
+                          })}
                         </select>
                       </div>
                     </div>
@@ -378,10 +389,10 @@ const EditProduct = () => {
                       <button
                         id="singlebutton"
                         name="singlebutton"
-                        className="btn btn-primary"
+                        className="btn btn-ht btn-br btn-bg btn-primary"
                         type="submit"
                       >
-                        Submit
+                        Update
                       </button>
                     </div>
                   </div>

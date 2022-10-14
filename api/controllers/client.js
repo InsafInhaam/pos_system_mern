@@ -14,12 +14,12 @@ exports.create = async (req, res, next) => {
   const client = new Client(req.body);
 
   try {
-    const newProduct = await client.save();
+    const newClient = await client.save();
 
     res.status(201).json({
       status: "success",
       data: {
-        newProduct,
+        newClient,
       },
     });
   } catch (error) {
@@ -31,7 +31,7 @@ exports.create = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  const updateProduct = await Client.findByIdAndUpdate(
+  const updateClient = await Client.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body,
@@ -45,7 +45,7 @@ exports.update = async (req, res, next) => {
     res.status(201).json({
       status: "updated successfully",
       data: {
-        updateProduct,
+        updateClient,
       },
     });
   } catch (error) {
@@ -56,8 +56,8 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.deleteProduct = async (req, res, next) => {
-  deletedProducts = await Client.findByIdAndDelete(req.params.id);
+exports.deleteClient = async (req, res, next) => {
+  deletedClients = await Client.findByIdAndDelete(req.params.id);
 
   try {
     res.status(201).json({

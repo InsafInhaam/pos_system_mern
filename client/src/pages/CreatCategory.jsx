@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addProduct } from "../api/category";
+import { addCategory } from "./../api/category";
 
 const CreatCategory = () => {
   const [loading, setLoading] = useState(false);
@@ -17,12 +17,7 @@ const CreatCategory = () => {
     color: "",
   });
 
-  const {
-    name,
-    description,
-    color,
-
-  } = state;
+  const { name, description, color } = state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +25,7 @@ const CreatCategory = () => {
       toast.error("Please provide all the required fields");
     } else {
       setLoading(true);
-      addProduct(state).then((response) => {
+      addCategory(state).then((response) => {
         if (response.status === 201) {
           toast.success("Category created successfully");
           setLoading(false);
@@ -85,7 +80,7 @@ const CreatCategory = () => {
                         className="col-md-12 control-label"
                         htmlFor="category_name"
                       >
-                         Name
+                        Name
                       </label>
                       <div className="col-md-12">
                         <input
@@ -119,13 +114,13 @@ const CreatCategory = () => {
                       </div>
                     </div>
                   </div>
-                  
-
 
                   <div className="row">
-
-                  <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" htmlFor="color">
+                    <div className="form-group col-md-6">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="color"
+                      >
                         Color
                       </label>
                       <div className="col-md-2">
@@ -143,7 +138,10 @@ const CreatCategory = () => {
                     </div>
 
                     <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" htmlFor="filebutton">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="filebutton"
+                      >
                         Image
                       </label>
                       <div className="col-md-12">
@@ -162,7 +160,7 @@ const CreatCategory = () => {
                       <button
                         id="singlebutton"
                         name="singlebutton"
-                        className="btn btn-primary"
+                        className="btn btn-ht btn-br btn-bg btn-primary"
                         type="submit"
                       >
                         Submit
@@ -188,4 +186,4 @@ const CreatCategory = () => {
   );
 };
 
-export default CreatCategory
+export default CreatCategory;

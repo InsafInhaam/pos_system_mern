@@ -1,13 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ScrollTop = () => {
-
-  
   return (
     <>
-      <a className="scroll-to-top rounded" href="#page-top">
+      <Link className="scroll-to-top rounded" to="#page-top">
         <i className="fas fa-angle-up"></i>
-      </a>
+      </Link>
     </>
   );
 };

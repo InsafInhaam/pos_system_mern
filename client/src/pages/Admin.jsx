@@ -1,11 +1,100 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
+import ToolkitProvider, {
+  Search,
+  CSVExport,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
+import { Admins, DeleteAdmin } from "../api/admin";
 
 const Admin = () => {
+  const [admins, setAdmins] = useState([]);
+
+  useEffect(() => {
+    Admins().then((response) => {
+      setAdmins(response.data);
+    });
+  }, [admins]);
+
+  const deleteAdmin = (id) => {
+    DeleteAdmin(id).then((response) => {
+      if (response.status === 201) {
+        toast.success("Admin deleted successfully");
+      } else {
+        toast.error("Admin deleted failed");
+      }
+    });
+  };
+
+  const { ExportCSVButton } = CSVExport;
+  const { SearchBar } = Search;
+  const columns = [
+    {
+      dataField: "#",
+      text: " ID",
+      sort: true,
+    },
+    {
+      dataField: "firstName",
+      text: "First Name",
+      sort: true,
+    },
+    {
+      dataField: "lastName",
+      text: "Last Name",
+      sort: true,
+    },
+    {
+      dataField: "email",
+      text: " Email",
+      sort: true,
+    },
+    {
+      dataField: "role",
+      text: "Role",
+      sort: true,
+    },
+    {
+      dataField: "gender",
+      text: "Gender",
+      sort: true,
+    },
+    {
+      dataField: "_id",
+      text: "View",
+      formatter: (cellContent, row) => (
+        <Link to={"/viewAdmin/" + row._id} className="view">
+          <i className="material-icons">&#xE417;</i>
+        </Link>
+      ),
+    },
+    {
+      dataField: "_id",
+      text: "Edit",
+      formatter: (cellContent, row) => (
+        <Link to={"/editAdmin/" + row._id} className="edit">
+          <i className="material-icons">&#xE254;</i>
+        </Link>
+      ),
+    },
+    {
+      dataField: "_id",
+      text: "Delete",
+      formatter: (cellContent, row) => (
+        <Link to="#" className="delete" onClick={(e) => deleteAdmin(row._id)}>
+          <i className="material-icons">&#xE872;</i>
+        </Link>
+      ),
+    },
+  ];
+
   return (
     <>
       {/* <!-- Page Wrapper --> */}
@@ -25,6 +114,16 @@ const Admin = () => {
               {/* <!-- Page Heading --> */}
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Admin</h1>
+                <Link
+                  to="/createAdmin"
+                  className="d-none d-sm-inline-block btn btn-ht btn-br btn-bg btn-sm btn-primary shadow-sm"
+                >
+                  <i className="fas fa-plus-circle fa-sm text-white-50"></i>
+                  &nbsp; Create admin
+                </Link>
+              </div>
+              <div>
+                <ToastContainer />
               </div>
               <div className="table-responsive">
                 <div className="table-wrapper">
@@ -35,251 +134,38 @@ const Admin = () => {
                           Admin <b>Details</b>
                         </h2>
                       </div>
-                      <div className="col-sm-4">
-                        <div className="search-box">
-                          <i className="material-icons">&#xE8B6;</i>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search&hellip;"
+                    </div>
+                  </div>
+                  <ToolkitProvider
+                    keyField="id"
+                    data={admins}
+                    columns={columns}
+                    search
+                    exportCSV
+                  >
+                    {(props) => (
+                      <div>
+                        <div className="d-flex align-items-center justify-content-between search-export-col">
+                          <SearchBar
+                            {...props.searchProps}
+                            className="form-control mb-0"
                           />
+                          <ExportCSVButton
+                            {...props.csvProps}
+                            className="btn btn-ht btn-br btn-bg btn-primary"
+                          >
+                            Export CSV!!
+                          </ExportCSVButton>
                         </div>
+
+                        <hr />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          pagination={paginationFactory()}
+                        />
                       </div>
-                    </div>
-                  </div>
-                  <table className="table table-striped table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>
-                          Name <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Address</th>
-                        <th>
-                          City <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Pin Code</th>
-                        <th>
-                          Country <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Thomas Hardy</td>
-                        <td>89 Chiaroscuro Rd.</td>
-                        <td>Portland</td>
-                        <td>97219</td>
-                        <td>USA</td>
-                        <td>
-                          <a
-                            href="#"
-                            className="view"
-                            title="View"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE417;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="edit"
-                            title="Edit"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE254;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="delete"
-                            title="Delete"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE872;</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Maria Anders</td>
-                        <td>Obere Str. 57</td>
-                        <td>Berlin</td>
-                        <td>12209</td>
-                        <td>Germany</td>
-                        <td>
-                          <a
-                            href="#"
-                            className="view"
-                            title="View"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE417;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="edit"
-                            title="Edit"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE254;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="delete"
-                            title="Delete"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE872;</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Fran Wilson</td>
-                        <td>C/ Araquil, 67</td>
-                        <td>Madrid</td>
-                        <td>28023</td>
-                        <td>Spain</td>
-                        <td>
-                          <a
-                            href="#"
-                            className="view"
-                            title="View"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE417;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="edit"
-                            title="Edit"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE254;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="delete"
-                            title="Delete"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE872;</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Dominique Perrier</td>
-                        <td>25, rue Lauriston</td>
-                        <td>Paris</td>
-                        <td>75016</td>
-                        <td>France</td>
-                        <td>
-                          <a
-                            href="#"
-                            className="view"
-                            title="View"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE417;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="edit"
-                            title="Edit"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE254;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="delete"
-                            title="Delete"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE872;</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>Martin Blank</td>
-                        <td>Via Monte Bianco 34</td>
-                        <td>Turin</td>
-                        <td>10100</td>
-                        <td>Italy</td>
-                        <td>
-                          <a
-                            href="#"
-                            className="view"
-                            title="View"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE417;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="edit"
-                            title="Edit"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE254;</i>
-                          </a>
-                          <a
-                            href="#"
-                            className="delete"
-                            title="Delete"
-                            data-toggle="tooltip"
-                          >
-                            <i className="material-icons">&#xE872;</i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text">
-                      Showing <b>5</b> out of <b>25</b> entries
-                    </div>
-                    <ul className="pagination">
-                      <li className="page-item disabled">
-                        <a href="#">
-                          <i className="fa fa-angle-double-left"></i>
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a href="#" className="page-link">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          4
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          5
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          <i className="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                    )}
+                  </ToolkitProvider>
                 </div>
               </div>
 

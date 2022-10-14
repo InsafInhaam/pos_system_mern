@@ -15,22 +15,27 @@ const ClientSchema = new mongoose.Schema({
   },
   bussinessName: {
     type: String,
+    required: true,
   },
   position: {
     type: String,
     required: true,
   },
   bussinessEmail: {
-    type: Number,
+    type: String,
+    required: true,
   },
   bussinessAddress: {
     type: String,
+    required: true,
   },
   bussinessPhone: {
     type: Number,
+    required: true,
   },
   gender: {
     type: String,
+    required: true,
   },
   image: {
     type: String,

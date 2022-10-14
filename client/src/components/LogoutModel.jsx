@@ -1,6 +1,15 @@
 import React from "react";
+import { logout } from "./../helpers/auth";
+import { useNavigate } from "react-router-dom";
 
 const LogoutModel = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(() => {
+      navigate("/login");
+    });
+  };
   return (
     <>
       {/* <!-- Logout Modal--> */}
@@ -32,15 +41,19 @@ const LogoutModel = () => {
             </div>
             <div className="modal-footer">
               <button
-                className="btn btn-secondary"
+                className="btn btn-ht btn-br btn-bg btn-secondary"
                 type="button"
                 data-dismiss="modal"
               >
                 Cancel
               </button>
-              <a className="btn btn-primary" href="login.html">
+              <button
+                className="btn btn-ht btn-br btn-bg btn-primary"
+                data-dismiss="modal"
+                onClick={handleLogout}
+              >
                 Logout
-              </a>
+              </button>
             </div>
           </div>
         </div>

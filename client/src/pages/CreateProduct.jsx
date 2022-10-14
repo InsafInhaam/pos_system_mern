@@ -13,35 +13,71 @@ import { Categories } from "../api/category";
 const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const [fetchcategory, setFetchCategory] = useState([]);
-  const [state, setState] = useState({
-    name: "",
-    description: "",
-    price: "",
-    category: "",
-    quantity: "",
-    weight: "",
-    color: "",
-    size: "",
-    status: "",
-    discount: "",
-    tax: "",
-    dimension: "",
-  });
+  // const [state, setState] = useState({
+  //   name: "",
+  //   description: "",
+  //   price: "",
+  //   category: "",
+  //   quantity: "",
+  //   weight: "",
+  //   color: "",
+  //   size: "",
+  //   status: "",
+  //   discount: "",
+  //   tax: "",
+  //   dimension: "",
+  //   image: "",
+  // });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [status, setStatus] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [tax, setTax] = useState("");
+  const [dimension, setDimension] = useState("");
+  const [image, setImage] = useState("");
 
-  const {
-    name,
-    description,
-    price,
-    category,
-    quantity,
-    weight,
-    color,
-    size,
-    status,
-    discount,
-    tax,
-    dimension,
-  } = state;
+  console.log(image);
+  // const {
+  //   name,
+  // description,
+  // price,
+  // category,
+  // quantity,
+  // weight,
+  // color,
+  // size,
+  // status,
+  // discount,
+  // tax,
+  // dimension,
+  // image,
+  // } = state;
+
+  const onChangeFile = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const formData = new FormData();
+
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("price", price);
+  formData.append("category", category);
+  formData.append("quantity", quantity);
+  formData.append("weight", weight);
+  formData.append("color", color);
+  formData.append("size", size);
+  formData.append("status", status);
+  formData.append("discount", discount);
+  formData.append("tax", tax);
+  formData.append("dimension", dimension);
+  formData.append("image", image);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +85,7 @@ const CreateProduct = () => {
       toast.error("Please provide all the required fields");
     } else {
       setLoading(true);
-      addProduct(state).then((response) => {
+      addProduct(formData).then((response) => {
         if (response.status === 201) {
           toast.success("Product created successfully");
           setLoading(false);
@@ -61,15 +97,16 @@ const CreateProduct = () => {
   };
 
   const handleInputChange = (e) => {
-    let { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    // let { name, value } = e.target;
+    // setState({ ...state, [name]: value });
   };
 
   useEffect(() => {
     Categories().then((response) => {
       setFetchCategory(response.data);
+      console.log(response.data);
     });
-  }, []);
+  }, [fetchcategory]);
 
   return (
     <>
@@ -96,6 +133,8 @@ const CreateProduct = () => {
               <form
                 className="form-horizontal p-3 shadow-lg mb-5"
                 onSubmit={handleSubmit}
+                enctype="multipart/form-data"
+                method="post"
               >
                 {loading && (
                   <div className="text-center position-absolute loading-bubble">
@@ -121,7 +160,7 @@ const CreateProduct = () => {
                           required=""
                           type="text"
                           value={name}
-                          onChange={handleInputChange}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>
@@ -139,7 +178,7 @@ const CreateProduct = () => {
                           id="product_description"
                           name="description"
                           value={description}
-                          onChange={handleInputChange}
+                          onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                       </div>
                     </div>
@@ -156,12 +195,12 @@ const CreateProduct = () => {
                         <input
                           id="product_price"
                           name="price"
-                          placeholder=" Price"
+                          placeholder="Price"
                           className="form-control input-md"
                           required=""
                           type="number"
                           value={price}
-                          onChange={handleInputChange}
+                          onChange={(e) => setPrice(e.target.value)}
                         />
                       </div>
                     </div>
@@ -179,10 +218,14 @@ const CreateProduct = () => {
                           name="category"
                           className="form-control"
                           value={category}
-                          onChange={handleInputChange}
+                          onChange={(e) => setCategory(e.target.value)}
                         >
                           {fetchcategory?.map((fetchcat, key) => {
-                            return <option value={key}>{fetchcat.name}</option>;
+                            return (
+                              <option value={fetchcat.name} key={key}>
+                                {fetchcat.name}
+                              </option>
+                            );
                           })}
                         </select>
                       </div>
@@ -205,7 +248,7 @@ const CreateProduct = () => {
                           required=""
                           type="text"
                           value={quantity}
-                          onChange={handleInputChange}
+                          onChange={(e) => setQuantity(e.target.value)}
                         />
                       </div>
                     </div>
@@ -226,7 +269,7 @@ const CreateProduct = () => {
                           required=""
                           type="number"
                           value={weight}
-                          onChange={handleInputChange}
+                          onChange={(e) => setWeight(e.target.value)}
                         />
                       </div>
                     </div>
@@ -249,7 +292,7 @@ const CreateProduct = () => {
                           required=""
                           type="color"
                           value={color}
-                          onChange={handleInputChange}
+                          onChange={(e) => setColor(e.target.value)}
                         />
                       </div>
                     </div>
@@ -270,7 +313,7 @@ const CreateProduct = () => {
                           required=""
                           type="number"
                           value={size}
-                          onChange={handleInputChange}
+                          onChange={(e) => setSize(e.target.value)}
                         />
                       </div>
                     </div>
@@ -293,7 +336,7 @@ const CreateProduct = () => {
                           required=""
                           type="number"
                           value={discount}
-                          onChange={handleInputChange}
+                          onChange={(e) => setDiscount(e.target.value)}
                         />
                       </div>
                     </div>
@@ -314,7 +357,7 @@ const CreateProduct = () => {
                           required=""
                           type="text"
                           value={status}
-                          onChange={handleInputChange}
+                          onChange={(e) => setStatus(e.target.value)}
                         />
                       </div>
                     </div>
@@ -337,7 +380,7 @@ const CreateProduct = () => {
                           required=""
                           type="number"
                           value={tax}
-                          onChange={handleInputChange}
+                          onChange={(e) => setTax(e.target.value)}
                         />
                       </div>
                     </div>
@@ -358,33 +401,37 @@ const CreateProduct = () => {
                           required=""
                           type="text"
                           value={dimension}
-                          onChange={handleInputChange}
+                          onChange={(e) => setDimension(e.target.value)}
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* <div className="row">
+                  <div className="row">
                     <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" htmlFor="filebutton">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="filebutton"
+                      >
                         Image
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="filebutton"
-                          name="filebutton"
-                          className="input-file"
+                          className="form-control input-file"
+                          // filename="image"
+                          name="image"
                           type="file"
+                          onChange={onChangeFile}
                         />
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="form-group col-md-6 pl-0">
                     <div className="col-md-12">
                       <button
                         id="singlebutton"
                         name="singlebutton"
-                        className="btn btn-primary"
+                        className="btn btn-ht btn-br btn-bg btn-primary"
                         type="submit"
                       >
                         Submit

@@ -8,7 +8,7 @@ export const addClient = async (data) => {
   };
 
   const response = await axios.post(
-    "http://localhost:5000/api/client/create",
+    process.env.REACT_APP_API_URL + "/api/client/create",
     data,
     config
   );
@@ -23,7 +23,7 @@ export const updateClient = async (id, data) => {
   };
 
   const response = await axios.put(
-    "http://localhost:5000/api/client/update/" + id,
+    process.env.REACT_APP_API_URL + "/api/client/update/" + id,
     data,
     config
   );
@@ -31,19 +31,23 @@ export const updateClient = async (id, data) => {
 };
 
 export const Clients = async (data) => {
-  const response = await axios.get("http://localhost:5000/api/client/");
+  const response = await axios.get(
+    process.env.REACT_APP_API_URL + "/api/client/"
+  );
   return response;
 };
 
 export const DeleteClient = async (id) => {
   const response = await axios.delete(
-    "http://localhost:5000/api/client/delete/" + id
+    process.env.REACT_APP_API_URL + "/api/client/delete/" + id
   );
   return response;
 };
 
 export const GetClientById = async (id) => {
-  const response = await axios.get("http://localhost:5000/api/client/" + id);
+  const response = await axios.get(
+    process.env.REACT_APP_API_URL + "/api/client/" + id
+  );
 
   return response;
 };

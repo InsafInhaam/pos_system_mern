@@ -8,7 +8,7 @@ export const addProduct = async (data) => {
   };
 
   const response = await axios.post(
-    "http://localhost:5000/api/product/create",
+    process.env.REACT_APP_API_URL + "/api/product/create",
     data,
     config
   );
@@ -23,7 +23,7 @@ export const updateProduct = async (id, data) => {
   };
 
   const response = await axios.put(
-    "http://localhost:5000/api/product/update/" + id,
+    process.env.REACT_APP_API_URL + "/api/product/update/" + id,
     data,
     config
   );
@@ -31,19 +31,23 @@ export const updateProduct = async (id, data) => {
 };
 
 export const Products = async (data) => {
-  const response = await axios.get("http://localhost:5000/api/product/");
+  const response = await axios.get(
+    process.env.REACT_APP_API_URL + "/api/product/"
+  );
   return response;
 };
 
 export const DeleteProduct = async (id) => {
   const response = await axios.delete(
-    "http://localhost:5000/api/product/delete/" + id
+    process.env.REACT_APP_API_URL + "/api/product/delete/" + id
   );
   return response;
 };
 
 export const GetProductById = async (id) => {
-  const response = await axios.get("http://localhost:5000/api/product/" + id);
+  const response = await axios.get(
+    process.env.REACT_APP_API_URL + "/api/product/" + id
+  );
 
   return response;
 };

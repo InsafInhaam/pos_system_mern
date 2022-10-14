@@ -4,6 +4,7 @@ import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
@@ -31,7 +32,7 @@ const NotFound = () => {
                 <p className="text-gray-500 mb-0">
                   It looks like you found a glitch in the matrix...
                 </p>
-                <a href="/">&larr; Back to Dashboard</a>
+                <Link to="/">&larr; Back to Dashboard</Link>
               </div>
             </div>
             {/* <!-- /.container-fluid --> */}

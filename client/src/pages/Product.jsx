@@ -13,15 +13,17 @@ import ToolkitProvider, {
   Search,
   CSVExport,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
+import ViewProduct from "./ViewProduct";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
+  const [productId, setProductId] = useState("");
 
   useEffect(() => {
     Products().then((response) => {
       setProducts(response.data);
     });
-  }, []);
+  }, [products]);
 
   const deleteProduct = (id) => {
     DeleteProduct(id).then((response) => {
@@ -32,6 +34,7 @@ const Product = () => {
       }
     });
   };
+
   const { ExportCSVButton } = CSVExport;
 
   const { SearchBar } = Search;
@@ -39,12 +42,24 @@ const Product = () => {
   const columns = [
     {
       dataField: "#",
-      text: " ID",
+      text: "ID",
       sort: true,
     },
     {
+      dataField: "image",
+      text: "Image",
+      sort: true,
+      formatter: (cellContent, row) => (
+        <img
+          src={`/uploads/products/${row.image}`}
+          alt={row.image}
+          className="rounded img-product-list"
+        />
+      ),
+    },
+    {
       dataField: "name",
-      text: " Name",
+      text: "Name",
       sort: true,
     },
     {
@@ -54,28 +69,35 @@ const Product = () => {
     },
     {
       dataField: "category",
-      text: " category",
+      text: "Category",
       sort: true,
     },
     {
       dataField: "quantity",
-      text: " quantity",
+      text: "Quantity",
       sort: true,
     },
     {
       dataField: "_id",
       text: "View",
       formatter: (cellContent, row) => (
-        <Link to={"/viewProduct/" + row._id} className="view">
-          <i className="material-icons">&#xE417;</i>
-        </Link>
+        <>
+          <Link
+            data-toggle="modal"
+            data-target="#exampleModalLong"
+            className="view"
+            onClick={(e) => setProductId(row._id)}
+          >
+            <i className="material-icons">&#xE417;</i>
+          </Link>
+        </>
       ),
     },
     {
       dataField: "_id",
       text: "Edit",
       formatter: (cellContent, row) => (
-        <Link to={"/editProduct/" + row._id} className="edit">
+        <Link to={"/editproduct/" + row._id} className="edit">
           <i className="material-icons">&#xE254;</i>
         </Link>
       ),
@@ -84,9 +106,9 @@ const Product = () => {
       dataField: "_id",
       text: "Delete",
       formatter: (cellContent, row) => (
-        <a href="#" className="delete" onClick={(e) => deleteProduct(row._id)}>
+        <Link to="#" className="delete" onClick={(e) => deleteProduct(row._id)}>
           <i className="material-icons">&#xE872;</i>
-        </a>
+        </Link>
       ),
     },
   ];
@@ -106,13 +128,13 @@ const Product = () => {
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Products</h1>
-                <a
-                  href="/createproduct"
-                  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                <Link
+                  to="/createProduct"
+                  className="d-none d-sm-inline-block btn btn-ht btn-br btn-bg btn-sm btn-primary shadow-sm"
                 >
                   <i className="fas fa-plus-circle fa-sm text-white-50"></i>
                   &nbsp; Create product
-                </a>
+                </Link>
               </div>
               <div>
                 <ToastContainer />
@@ -144,7 +166,7 @@ const Product = () => {
                           />
                           <ExportCSVButton
                             {...props.csvProps}
-                            className="btn btn-primary"
+                            className="btn btn-ht btn-br btn-bg btn-primary"
                           >
                             Export CSV!!
                           </ExportCSVButton>
@@ -173,6 +195,9 @@ const Product = () => {
 
       {/* <!-- Logout Modal--> */}
       <LogoutModel />
+
+      {/* <!-- Modal --> */}
+      <ViewProduct productId={productId} />
     </>
   );
 };

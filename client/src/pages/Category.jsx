@@ -4,9 +4,15 @@ import LogoutModel from "../components/LogoutModel";
 import Navbar from "../components/Navbar";
 import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
-import { Categories } from "../api/category";
+import { Categories, DeleteCategory } from "../api/category";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import BootstrapTable from "react-bootstrap-table-next";
+import ToolkitProvider, {
+  Search,
+  CSVExport,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 
 const Category = () => {
   const [category, setCategory] = useState([]);
@@ -15,7 +21,69 @@ const Category = () => {
     Categories().then((response) => {
       setCategory(response.data);
     });
-  }, []);
+  }, [category]);
+
+  const deleteCategory = (id) => {
+    DeleteCategory(id).then((response) => {
+      if (response.status === 201) {
+        toast.success("Category deleted successfully");
+      } else {
+        toast.error("Category deleted failed");
+      }
+    });
+  };
+
+  const { ExportCSVButton } = CSVExport;
+  const { SearchBar } = Search;
+  const columns = [
+    {
+      dataField: "#",
+      text: " ID",
+      sort: true,
+    },
+    {
+      dataField: "name",
+      text: "Name",
+      sort: true,
+    },
+    {
+      dataField: "description",
+      text: "Description",
+      sort: true,
+    },
+    {
+      dataField: "color",
+      text: "Color",
+      sort: true,
+    },
+    {
+      dataField: "image",
+      text: "Image",
+      sort: true,
+    },
+    {
+      dataField: "_id",
+      text: "Edit",
+      formatter: (cellContent, row) => (
+        <Link to={"/editCategory/" + row._id} className="edit">
+          <i className="material-icons">&#xE254;</i>
+        </Link>
+      ),
+    },
+    {
+      dataField: "_id",
+      text: "Delete",
+      formatter: (cellContent, row) => (
+        <Link
+          to="#"
+          className="delete"
+          onClick={(e) => deleteCategory(row._id)}
+        >
+          <i className="material-icons">&#xE872;</i>
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -32,13 +100,16 @@ const Category = () => {
             <div className="container-fluid">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Categories</h1>
-                <a
-                  href="/createproduct"
-                  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                <Link
+                  to="/createCategory"
+                  className="d-none d-sm-inline-block btn btn-ht btn-br btn-bg btn-sm btn-primary shadow-sm"
                 >
                   <i className="fas fa-plus-circle fa-sm text-white-50"></i>
                   &nbsp; Create Category
-                </a>
+                </Link>
+              </div>
+              <div>
+                <ToastContainer />
               </div>
               <div className="table-responsive">
                 <div className="table-wrapper">
@@ -49,113 +120,38 @@ const Category = () => {
                           Category <b>Details</b>
                         </h2>
                       </div>
-                      <div className="col-sm-4">
-                        <div className="search-box">
-                          <i className="material-icons">&#xE8B6;</i>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search&hellip;"
+                    </div>
+                  </div>
+                  <ToolkitProvider
+                    keyField="id"
+                    data={category}
+                    columns={columns}
+                    search
+                    exportCSV
+                  >
+                    {(props) => (
+                      <div>
+                        <div className="d-flex align-items-center justify-content-between search-export-col">
+                          <SearchBar
+                            {...props.searchProps}
+                            className="form-control mb-0"
                           />
+                          <ExportCSVButton
+                            {...props.csvProps}
+                            className="btn btn-ht btn-br btn-bg btn-primary"
+                          >
+                            Export CSV!!
+                          </ExportCSVButton>
                         </div>
+
+                        <hr />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          pagination={paginationFactory()}
+                        />
                       </div>
-                    </div>
-                  </div>
-                  <table className="table table-striped table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>
-                          Name <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Description</th>
-                        <th>
-                          Color <i className="fa fa-sort"></i>
-                        </th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {category?.map((catItem, key) => {
-                        return (
-                          <tr key={key}>
-                            <td>{key}</td>
-                            <td>{catItem.name}</td>
-                            <td>{catItem.description}</td>
-                            <td>{catItem.color}</td>
-                            <td>
-                              <a
-                                href="#"
-                                className="view"
-                                title="View"
-                                data-toggle="tooltip"
-                              >
-                                <i className="material-icons">&#xE417;</i>
-                              </a>
-                              <a
-                                href="#"
-                                className="edit"
-                                title="Edit"
-                                data-toggle="tooltip"
-                              >
-                                <i className="material-icons">&#xE254;</i>
-                              </a>
-                              <a
-                                href="#"
-                                className="delete"
-                                title="Delete"
-                                data-toggle="tooltip"
-                              >
-                                <i className="material-icons">&#xE872;</i>
-                              </a>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="clearfix">
-                    <div className="hint-text">
-                      Showing <b>5</b> out of <b>25</b> entries
-                    </div>
-                    <ul className="pagination">
-                      <li className="page-item disabled">
-                        <a href="#">
-                          <i className="fa fa-angle-double-left"></i>
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item active">
-                        <a href="#" className="page-link">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          4
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          5
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a href="#" className="page-link">
-                          <i className="fa fa-angle-double-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                    )}
+                  </ToolkitProvider>
                 </div>
               </div>
             </div>

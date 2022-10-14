@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "./assets/img/logo.png";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -9,25 +10,22 @@ const Sidebar = () => {
         id="accordionSidebar"
       >
         {/* <!-- Sidebar - Brand --> */}
-        <a
+        <Link
           className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="/"
+          to="/"
         >
-          <div className="sidebar-brand-icon">
-            <img src={logo} alt="" className="w-100" />
-          </div>
           <div className="sidebar-brand-text mx-3">ININ Technologies</div>
-        </a>
+        </Link>
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider my-0" />
 
         {/* <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
-          <a className="nav-link" href="/">
+          <Link className="nav-link" to="/">
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
-          </a>
+          </Link>
         </li>
 
         {/* <!-- Divider --> */}
@@ -36,50 +34,19 @@ const Sidebar = () => {
         {/* <!-- Heading --> */}
         <div className="sidebar-heading">Interface</div>
 
-        {/* <!-- Nav Item - Pages Collapse Menu --> */}
-        <li className="nav-item">
-          <a
-            className="nav-link collapsed"
-            href="/"
-            data-toggle="collapse"
-            data-target="#collapseTwo"
-            aria-expanded="true"
-            aria-controls="collapseTwo"
-          >
-            <i className="fas fa-fw fa-cog"></i>
-            <span>Components</span>
-          </a>
-          <div
-            id="collapseTwo"
-            className="collapse"
-            aria-labelledby="headingTwo"
-            data-parent="#accordionSidebar"
-          >
-            <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Custom Components:</h6>
-              <a className="collapse-item" href="buttons.html">
-                Buttons
-              </a>
-              <a className="collapse-item" href="cards.html">
-                Cards
-              </a>
-            </div>
-          </div>
-        </li>
-
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         <li className="nav-item">
-          <a
+          <Link
             className="nav-link collapsed"
-            href="/"
+            to="#"
             data-toggle="collapse"
             data-target="#collapseUtilities"
             aria-expanded="true"
             aria-controls="collapseUtilities"
           >
-            <i className="fas fa-fw fa-wrench"></i>
+            <i className="fas fa-fw fa-file"></i>
             <span>Project</span>
-          </a>
+          </Link>
           <div
             id="collapseUtilities"
             className="collapse"
@@ -87,34 +54,34 @@ const Sidebar = () => {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <a className="collapse-item" href="/projects">
+              <Link className="collapse-item" to="/projects">
                 Projects
-              </a>
-              <a className="collapse-item" href="/tasks">
+              </Link>
+              <Link className="collapse-item" to="/tasks">
                 Tasks
-              </a>
-              <a className="collapse-item" href="/clients">
+              </Link>
+              <Link className="collapse-item" to="/clients">
                 Clients
-              </a>
-              <a className="collapse-item" href="/">
+              </Link>
+              <Link className="collapse-item" to="/">
                 Other
-              </a>
+              </Link>
             </div>
           </div>
         </li>
 
         <li className="nav-item">
-          <a
+          <Link
             className="nav-link collapsed"
-            href="/"
+            to="#"
             data-toggle="collapse"
             data-target="#collapseInventory"
             aria-expanded="true"
             aria-controls="collapseInventory"
           >
-            <i className="fas fa-fw fa-wrench"></i>
+            <i className="fas fa-fw fa-toolbox"></i>
             <span>Inventory</span>
-          </a>
+          </Link>
           <div
             id="collapseInventory"
             className="collapse"
@@ -122,41 +89,41 @@ const Sidebar = () => {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <a className="collapse-item" href="/products">
+              <Link className="collapse-item" to="/products">
                 Products
-              </a>
-              <a className="collapse-item" href="/category">
+              </Link>
+              <Link className="collapse-item" to="/category">
                 Category
-              </a>
-              <a className="collapse-item" href="/customers">
+              </Link>
+              <Link className="collapse-item" to="/customers">
                 Customers
-              </a>
-              <a className="collapse-item" href="/">
-                Other
-              </a>
+              </Link>
+              <Link className="collapse-item" to="/orders">
+                POS Orders
+              </Link>
+              <Link className="collapse-item" to="/customorders">
+                Custom Orders
+              </Link>
+              <Link className="collapse-item" to="/vieworders">
+                Orders
+              </Link>
             </div>
           </div>
         </li>
 
-        {/* <!-- Divider --> */}
-        <hr className="sidebar-divider" />
-
-        {/* <!-- Heading --> */}
-        <div className="sidebar-heading">Addons</div>
-
         {/* <!-- Nav Item - Pages Collapse Menu --> */}
         <li className="nav-item">
-          <a
+          <Link
             className="nav-link collapsed"
-            href="/"
+            to="#"
             data-toggle="collapse"
             data-target="#collapsePages"
             aria-expanded="true"
             aria-controls="collapsePages"
           >
             <i className="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-          </a>
+            <span>Components</span>
+          </Link>
           <div
             id="collapsePages"
             className="collapse"
@@ -164,49 +131,22 @@ const Sidebar = () => {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Login Screens:</h6>
-              <a className="collapse-item" href="login.html">
-                Login
-              </a>
-              <a className="collapse-item" href="register.html">
-                Register
-              </a>
-              <a className="collapse-item" href="forgot-password.html">
-                Forgot Password
-              </a>
-              <div className="collapse-divider"></div>
-              <h6 className="collapse-header">Other Pages:</h6>
-              <a className="collapse-item" href="404.html">
-                404 Page
-              </a>
-              <a className="collapse-item" href="blank.html">
-                Blank Page
-              </a>
+              <Link className="collapse-item" to="/kanban">
+                Kanban
+              </Link>
+              <Link className="collapse-item" to="/calendar">
+                Calender
+              </Link>
             </div>
           </div>
         </li>
 
         {/* <!-- Nav Item - Charts --> */}
         <li className="nav-item">
-          <a className="nav-link" href="charts.html">
-            <i className="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span>
-          </a>
-        </li>
-
-        {/* <!-- Nav Item - Tables --> */}
-        <li className="nav-item">
-          <a className="nav-link" href="tables.html">
-            <i className="fas fa-fw fa-table"></i>
-            <span>Tables</span>
-          </a>
-        </li>
-
-        <li className="nav-item">
-          <a className="nav-link" href="tables.html">
-            <i className="fas fa-fw fa-table"></i>
-            <span>Calender</span>
-          </a>
+          <Link className="nav-link" to="/admin">
+            <i className="fas fa-fw fa-users"></i>
+            <span>Admin</span>
+          </Link>
         </li>
 
         {/* <!-- Divider --> */}

@@ -7,8 +7,20 @@ const {
   getById,
 } = require("../controllers/product");
 const router = express.Router();
+const multer = require("multer");
 
-router.route("/product/create").post(create);
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "../client/public/uploads/products");
+  },
+  filename: (req, file, callback) => {
+    callback(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+router.post("/product/create", upload.single("image"), create);
 
 router.route("/product/update/:id").put(update);
 
