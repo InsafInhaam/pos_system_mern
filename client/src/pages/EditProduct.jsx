@@ -7,51 +7,89 @@ import Sidebar from "../components/Sidebar";
 import Loading from "../components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { GetProductById, updateProduct } from "../api/product";
 import { Categories } from "../api/category";
 
 const EditProduct = () => {
+  let navigate = useNavigate();
   const location = useLocation();
   const product_id = location.pathname.split("/")[2];
-  // console.log(product_id);
 
   const [loading, setLoading] = useState(false);
   const [fetchcategory, setFetchCategory] = useState([]);
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    category: "",
-    quantity: "",
-    weight: "",
-    color: "",
-    size: "",
-    status: "",
-    discount: "",
-    tax: "",
-    dimension: "",
-  });
 
-  const {
-    name,
-    description,
-    price,
-    category,
-    quantity,
-    weight,
-    color,
-    size,
-    status,
-    discount,
-    tax,
-    dimension,
-  } = product;
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [weight, setWeight] = useState("");
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [status, setStatus] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [tax, setTax] = useState("");
+  const [dimension, setDimension] = useState("");
+  const [image, setImage] = useState("");
+  const [displayImage, setDisplayImage] = useState("");
+
+  const onChangeFile = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const formData = new FormData();
+
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("price", price);
+  formData.append("category", category);
+  formData.append("quantity", quantity);
+  formData.append("weight", weight);
+  formData.append("color", color);
+  formData.append("size", size);
+  formData.append("status", status);
+  formData.append("discount", discount);
+  formData.append("tax", tax);
+  formData.append("dimension", dimension);
+  formData.append("image", image);
+
+  // console.log(formData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !category || !description || !price || !quantity || !image) {
+      toast.error("Please provide all the required fields");
+    } else {
+      setLoading(true);
+      updateProduct(product_id, formData).then((response) => {
+        if (response.status === 201) {
+          toast.success("Product updated successfully");
+          setLoading(false);
+          navigate("/products");
+        } else {
+          toast.error(response.data);
+        }
+      });
+    }
+  };
 
   useEffect(() => {
     GetProductById(product_id).then((response) => {
-      setProduct(response.data);
-      // console.log(response);
+      setName(response.data.name);
+      setDescription(response.data.description);
+      setPrice(response.data.price);
+      setCategory(response.data.category);
+      setQuantity(response.data.quantity);
+      setWeight(response.data.weight);
+      setColor(response.data.color);
+      setSize(response.data.size);
+      setStatus(response.data.status);
+      setDiscount(response.data.discount);
+      setTax(response.data.tax);
+      setDimension(response.data.dimension);
+      setImage(response.data.image);
+      setDisplayImage(response.data.image);
     });
   }, [product_id]);
 
@@ -60,28 +98,6 @@ const EditProduct = () => {
       setFetchCategory(response.data);
     });
   }, [fetchcategory]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !category || !description || !price || !quantity) {
-      toast.error("Please provide all the required fields");
-    } else {
-      setLoading(true);
-      updateProduct(product_id, product).then((response) => {
-        if (response.status === 201) {
-          toast.success("Product updated successfully");
-          setLoading(false);
-        } else {
-          toast.error(response.data);
-        }
-      });
-    }
-  };
-
-  const handleInputChange = (e) => {
-    let { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
 
   return (
     <>
@@ -106,8 +122,10 @@ const EditProduct = () => {
                 <ToastContainer />
               </div>
               <form
-                className="form-horizontal border p-3 shadow-lg mb-5"
+                className="form-horizontal p-3 shadow-lg mb-5"
                 onSubmit={handleSubmit}
+                enctype="multipart/form-data"
+                method="post"
               >
                 {loading && (
                   <div className="text-center position-absolute loading-bubble">
@@ -130,9 +148,10 @@ const EditProduct = () => {
                           name="name"
                           placeholder="Name"
                           className="form-control input-md"
+                          required=""
                           type="text"
-                          value={name || ""}
-                          onChange={handleInputChange}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>
@@ -149,8 +168,8 @@ const EditProduct = () => {
                           className="form-control"
                           id="product_description"
                           name="description"
-                          value={description || ""}
-                          onChange={handleInputChange}
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                       </div>
                     </div>
@@ -167,11 +186,12 @@ const EditProduct = () => {
                         <input
                           id="product_price"
                           name="price"
-                          placeholder=" Price"
+                          placeholder="Price"
                           className="form-control input-md"
+                          required=""
                           type="number"
-                          value={price || ""}
-                          onChange={handleInputChange}
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
                         />
                       </div>
                     </div>
@@ -188,8 +208,8 @@ const EditProduct = () => {
                           id="product_category"
                           name="category"
                           className="form-control"
-                          value={category || ""}
-                          onChange={handleInputChange}
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
                         >
                           {fetchcategory?.map((fetchcat, key) => {
                             return (
@@ -216,9 +236,10 @@ const EditProduct = () => {
                           name="quantity"
                           placeholder="Quantity"
                           className="form-control input-md"
+                          required=""
                           type="text"
-                          value={quantity || ""}
-                          onChange={handleInputChange}
+                          value={quantity}
+                          onChange={(e) => setQuantity(e.target.value)}
                         />
                       </div>
                     </div>
@@ -236,13 +257,15 @@ const EditProduct = () => {
                           name="weight"
                           placeholder=" Weight"
                           className="form-control input-md"
+                          required=""
                           type="number"
-                          value={weight || ""}
-                          onChange={handleInputChange}
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
                         />
                       </div>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="form-group col-md-6">
                       <label
@@ -257,9 +280,10 @@ const EditProduct = () => {
                           name="color"
                           placeholder="Color"
                           className="form-control input-md"
+                          required=""
                           type="color"
-                          value={color || ""}
-                          onChange={handleInputChange}
+                          value={color}
+                          onChange={(e) => setColor(e.target.value)}
                         />
                       </div>
                     </div>
@@ -277,9 +301,10 @@ const EditProduct = () => {
                           name="size"
                           placeholder="Size"
                           className="form-control input-md"
+                          required=""
                           type="number"
-                          value={size || ""}
-                          onChange={handleInputChange}
+                          value={size}
+                          onChange={(e) => setSize(e.target.value)}
                         />
                       </div>
                     </div>
@@ -299,9 +324,10 @@ const EditProduct = () => {
                           name="discount"
                           placeholder="Discount percentage"
                           className="form-control input-md"
+                          required=""
                           type="number"
-                          value={discount || ""}
-                          onChange={handleInputChange}
+                          value={discount}
+                          onChange={(e) => setDiscount(e.target.value)}
                         />
                       </div>
                     </div>
@@ -314,15 +340,16 @@ const EditProduct = () => {
                         Status
                       </label>
                       <div className="col-md-12">
-                        <input
+                        <select
                           id="product_status"
                           name="status"
-                          placeholder="Status"
-                          className="form-control input-md"
-                          type="text"
-                          value={status || ""}
-                          onChange={handleInputChange}
-                        />
+                          className="form-control"
+                          value={status}
+                          onChange={(e) => setStatus(e.target.value)}
+                        >
+                          <option value="available">Available</option>
+                          <option value="outOfStock">Out of Stock</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -341,9 +368,10 @@ const EditProduct = () => {
                           name="tax"
                           placeholder="Tax"
                           className="form-control input-md"
+                          required=""
                           type="number"
-                          value={tax || ""}
-                          onChange={handleInputChange}
+                          value={tax}
+                          onChange={(e) => setTax(e.target.value)}
                         />
                       </div>
                     </div>
@@ -361,29 +389,44 @@ const EditProduct = () => {
                           name="dimension"
                           placeholder="Dimension"
                           className="form-control input-md"
+                          required=""
                           type="text"
-                          value={dimension || ""}
-                          onChange={handleInputChange}
+                          value={dimension}
+                          onChange={(e) => setDimension(e.target.value)}
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* <div className="row">
+                  <div className="row">
                     <div className="form-group col-md-6">
-                      <label className="col-md-12 control-label" htmlFor="filebutton">
+                      <label className="col-md-12 control-label">Image</label>
+                      <div className="col-md-12">
+                        <img
+                          src={`/uploads/products/${displayImage}`}
+                          style={{ width: "100px", height: "100%" }}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group col-md-6">
+                      <label
+                        className="col-md-12 control-label"
+                        htmlFor="filebutton"
+                      >
                         Image
                       </label>
                       <div className="col-md-12">
                         <input
-                          id="filebutton"
-                          name="filebutton"
-                          className="input-file"
+                          className="form-control input-file"
+                          filename="image"
+                          name="image"
                           type="file"
+                          // value={image}
+                          onChange={onChangeFile}
                         />
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="form-group col-md-6 pl-0">
                     <div className="col-md-12">
                       <button
@@ -392,7 +435,7 @@ const EditProduct = () => {
                         className="btn btn-ht btn-br btn-bg btn-primary"
                         type="submit"
                       >
-                        Update
+                        Submit
                       </button>
                     </div>
                   </div>

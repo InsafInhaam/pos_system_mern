@@ -37,29 +37,39 @@ exports.create = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  const updateProduct = await Product.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    {
-      new: true,
-    }
-  );
+  Product.findById(req.params.id).then((product) => {
+    (product.name = req.body.name),
+      (product.description = req.body.description),
+      (product.price = req.body.price),
+      (product.category = req.body.category),
+      (product.quantity = req.body.quantity),
+      (product.weight = req.body.weight),
+      (product.color = req.body.color),
+      (product.size = req.body.size),
+      (product.status = req.body.status),
+      (product.discount = req.body.discount),
+      (product.tax = req.body.tax),
+      (product.dimension = req.body.dimension),
+      (product.image = req.file.originalname),
+      product
+        .save()
+        .then(() =>
+          res.status(201).json({
+            status: "updated successfully",
+            data: {
+              updateProduct,
+            },
+          })
+        )
+        .catch((error) =>
+          res.status(500).json({
+            status: "Failed",
+            message: error,
+          })
+        );
+  });
 
-  try {
-    res.status(201).json({
-      status: "updated successfully",
-      data: {
-        updateProduct,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "Failed",
-      message: error,
-    });
-  }
+  // console.log(req.file);
 };
 
 exports.deleteProduct = async (req, res, next) => {

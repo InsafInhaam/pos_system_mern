@@ -22,6 +22,8 @@ app.use("/api", require("./routes/category"));
 app.use("/api", require("./routes/client"));
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/order"));
+app.use("/api", require("./routes/customer"));
+app.use("/api", require("./routes/user"));
 
 app.listen(PORT, () => {
   console.log("listening on port:" + PORT);

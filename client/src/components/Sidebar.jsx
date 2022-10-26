@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./assets/img/logo.png";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -14,7 +13,7 @@ const Sidebar = () => {
           className="sidebar-brand d-flex align-items-center justify-content-center"
           to="/"
         >
-          <div className="sidebar-brand-text mx-3">ININ Technologies</div>
+          <div className="sidebar-brand-text mx-3">Bigtech</div>
         </Link>
 
         {/* <!-- Divider --> */}
@@ -107,6 +106,9 @@ const Sidebar = () => {
               <Link className="collapse-item" to="/vieworders">
                 Orders
               </Link>
+              <Link className="collapse-item" to="/expenses">
+                Expenses
+              </Link>
             </div>
           </div>
         </li>
@@ -143,9 +145,84 @@ const Sidebar = () => {
 
         {/* <!-- Nav Item - Charts --> */}
         <li className="nav-item">
-          <Link className="nav-link" to="/admin">
+          <Link
+            className="nav-link collapsed"
+            to="#"
+            data-toggle="collapse"
+            data-target="#collapseUser"
+            aria-expanded="true"
+            aria-controls="collapseUser"
+          >
             <i className="fas fa-fw fa-users"></i>
-            <span>Admin</span>
+            <span>User</span>
+          </Link>
+          <div
+            id="collapseUser"
+            className="collapse"
+            aria-labelledby="headingUser"
+            data-parent="#accordionSidebar"
+          >
+            <div className="bg-white py-2 collapse-inner rounded">
+              <Link className="collapse-item" to="/admin">
+                User
+              </Link>
+              <Link className="collapse-item" to="/role">
+                Role
+              </Link>
+              <Link className="collapse-item" to="/permission">
+                Permission
+              </Link>
+            </div>
+          </div>
+        </li>
+
+        <li className="nav-item ">
+          <Link className="nav-link" to="/department">
+            <i class="fas fa-building"></i>
+            <span>Department</span>
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link
+            className="nav-link collapsed"
+            to="#"
+            data-toggle="collapse"
+            data-target="#collapseLeave"
+            aria-expanded="true"
+            aria-controls="collapseLeave"
+          >
+            <i class="fas fa-calendar-day"></i>
+            <span>Staff Leave</span>
+          </Link>
+          <div
+            id="collapseLeave"
+            className="collapse"
+            aria-labelledby="headingLeave"
+            data-parent="#accordionSidebar"
+          >
+            <div className="bg-white py-2 collapse-inner rounded">
+              <Link className="collapse-item" to="/requestLeave">
+                Request Leave
+              </Link>
+              <Link className="collapse-item" to="/approveLeave">
+                Approve/Reject Leave
+              </Link>
+            </div>
+          </div>
+        </li>
+
+        <li className="nav-item ">
+          <Link className="nav-link" to="/staffNotice">
+            <i class="fas fa-sticky-note"></i>
+            <span>Staff Notice</span>
+          </Link>
+        </li>
+
+        <li className="nav-item ">
+          <Link className="nav-link" to="/mail">
+            <i class="fas fa-mail-bulk"></i>
+            <span>Send Mail</span>
           </Link>
         </li>
 

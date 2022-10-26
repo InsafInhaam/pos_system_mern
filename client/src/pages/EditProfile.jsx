@@ -74,7 +74,7 @@ const EditProfile = () => {
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Edit your profile</h1>
               </div>
-              <div className="container rounded bg-white mt-4 mb-5">
+              <div className="rounded bg-white mt-4 mb-5">
                 <div className="row">
                   <div className="col-md-3 border-right">
                     <div className="d-flex flex-column align-items-center text-center p-3">

@@ -56,11 +56,11 @@ const Category = () => {
       text: "Color",
       sort: true,
     },
-    {
-      dataField: "image",
-      text: "Image",
-      sort: true,
-    },
+    // {
+    //   dataField: "image",
+    //   text: "Image",
+    //   sort: true,
+    // },
     {
       dataField: "_id",
       text: "Edit",

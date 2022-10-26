@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Product from "./pages/Product";
 import CreateProduct from "./pages/CreateProduct";
-import Projects from "./pages/Projects";
+import Project from "./pages/Project";
 import CreateProject from "./pages/CreateProject";
 import EditProduct from "./pages/EditProduct";
 import ViewProduct from "./pages/ViewProduct";
@@ -28,6 +28,11 @@ import Registration from "./pages/Registration";
 import Order from "./pages/Order";
 import ViewOrder from "./pages/ViewOrder";
 import CustomOrder from "./pages/CustomOrder";
+import Customer from "./pages/Customer";
+import CreateCustomer from "./pages/CreateCustomer";
+import EditCustomer from "./pages/EditCustomer";
+import Settings from "./pages/Settings";
+import UserLogin from "./pages/UserLogin";
 
 function App() {
   const ROLES = {
@@ -48,50 +53,59 @@ function App() {
 
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/userlogin" element={<UserLogin />} />
 
             {/* admin logged in */}
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-              {/* dashboard */}
-              <Route path="/" element={<Dashboard />} />
-              {/* common routes  */}
-              <Route path="/kanban" element={<Kanban />} />
-              {/* edit profile */}
-              <Route path="/editProfile" element={<EditProfile />} />
-              {/* products */}
-              <Route path="/products" element={<Product />} />
-              <Route path="/createproduct" element={<CreateProduct />} />
-              <Route path="/editproduct/:productId" element={<EditProduct />} />
-              <Route path="/viewproduct/:productId" element={<ViewProduct />} />
-              {/* orders */}
-              <Route path="/orders" element={<Order />} />
-              <Route path="/vieworders" element={<ViewOrder />} />
-              <Route path="/customorders" element={<CustomOrder />} />
-              {/* category */}
-              <Route path="/category" element={<Category />} />
-              <Route path="/createCategory" element={<CreatCategory />} />
-              <Route path="/editCategory/:id" element={<EditCategory />} />
-              {/* admin */}
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/createAdmin" element={<CreateAdmin />} />
-              <Route path="/editAdmin/:id" element={<EditAdmin />} />
-              <Route path="/viewAdmin/:id" element={<ViewAdmin />} />
-              {/* clients */}
-              <Route path="/clients" element={<Client />} />
-              <Route path="/createClient" element={<CreateClient />} />
-              <Route path="/editClient/:id" element={<EditClient />} />
-              <Route path="/viewClient/:id" element={<ViewClient />} />
-              {/* projects */}
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/createProject" element={<CreateProject />} />
-            </Route>
+            {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}> */}
+            {/* dashboard */}
+            <Route path="/" element={<Dashboard />} />
+            {/* common routes  */}
+            <Route path="/kanban" element={<Kanban />} />
+            {/* edit profile */}
+            <Route path="/editProfile" element={<EditProfile />} />
+            {/* settings */}
+            <Route path="/settings" element={<Settings />} />
+
+            {/* products */}
+            <Route path="/products" element={<Product />} />
+            <Route path="/createproduct" element={<CreateProduct />} />
+            <Route path="/editproduct/:productId" element={<EditProduct />} />
+            <Route path="/viewproduct/:productId" element={<ViewProduct />} />
+            {/* orders */}
+            <Route path="/orders" element={<Order />} />
+            <Route path="/vieworders" element={<ViewOrder />} />
+            <Route path="/customorders" element={<CustomOrder />} />
+            {/* category */}
+            <Route path="/category" element={<Category />} />
+            <Route path="/createCategory" element={<CreatCategory />} />
+            <Route path="/editCategory/:id" element={<EditCategory />} />
+            {/* admin */}
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/createAdmin" element={<CreateAdmin />} />
+            <Route path="/editAdmin/:id" element={<EditAdmin />} />
+            <Route path="/viewAdmin/:id" element={<ViewAdmin />} />
+            {/* clients */}
+            <Route path="/clients" element={<Client />} />
+            <Route path="/createClient" element={<CreateClient />} />
+            <Route path="/editClient/:id" element={<EditClient />} />
+            <Route path="/viewClient/:id" element={<ViewClient />} />
+            {/* projects */}
+            <Route path="/projects" element={<Project />} />
+            <Route path="/createProject" element={<CreateProject />} />
+
+            {/* customers */}
+            <Route path="/customers" element={<Customer />} />
+            <Route path="/createcustomer" element={<CreateCustomer />} />
+            <Route path="/editcustomer/:id" element={<EditCustomer />} />
+            {/* </Route> */}
 
             {/* project manger logged in */}
             <Route
               element={<RequireAuth allowedRoles={[ROLES.Project_manger]} />}
             >
               {/* projects  */}
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/createProject" element={<CreateProject />} />
+              {/* <Route path="/projects" element={<Project />} />
+              <Route path="/createProject" element={<CreateProject />} /> */}
               {/* clients */}
               <Route path="/clients" element={<Client />} />
               <Route path="/createClient" element={<CreateClient />} />

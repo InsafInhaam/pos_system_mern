@@ -628,7 +628,7 @@ h4.price {
 }
 
 /* registration form */
-.registration-container {
+/* .registration-container {
   height: 100vh;
   padding-left: 0px;
   padding-right: 12px;
@@ -691,6 +691,67 @@ h4.price {
   position: absolute;
   bottom: 10px;
   color: #fff;
+} */
+
+.invalid-feedback {
+  display: block;
+}
+
+/* Change the white to any color */
+:-webkit-autofill,
+:-webkit-autofill:hover,
+:-webkit-autofill:focus,
+:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/* projects */
+
+.card {
+  border: none;
+  margin-bottom: 24px;
+  -webkit-box-shadow: 0 0 13px 0 rgba(236, 236, 241, 0.44);
+  box-shadow: 0 0 13px 0 rgba(236, 236, 241, 0.44);
+}
+
+.avatar-xs {
+  height: 2.3rem;
+  width: 2.3rem;
+}
+
+/* customer view */
+
+.ViewCustomerCard p {
+  color: #8a98ac;
+}
+.ViewCustomerCard .table-borderless td {
+  border: 0 !important;
+}
+.ViewCustomerCard .table td {
+  color: #8a98ac;
+  vertical-align: middle;
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  padding: 0.6rem;
+}
+
+.ViewCustomerCard table.table td:last-child {
+  width: 400px !important;
+}
+
+.btn-primary-rgba {
+  background-color: rgba(80, 111, 228, 0.1);
+  border: none;
+  color: #506fe4;
+}
+.btn-success-rgba {
+  background-color: rgba(67, 209, 135, 0.1);
+  border: none;
+  color: #43d187;
+}
+.ViewCustomerCard {
+  border: none;
+  border-radius: 3px;
+  background-color: #ffffff;
 }
 
 /* dark mode */

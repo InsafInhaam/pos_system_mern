@@ -268,7 +268,7 @@ const Navbar = () => {
                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
               </Link>
-              <Link className="dropdown-item" to="#">
+              <Link className="dropdown-item" to="/settings">
                 <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 Settings
               </Link>

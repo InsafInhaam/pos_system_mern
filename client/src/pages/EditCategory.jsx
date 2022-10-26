@@ -149,7 +149,7 @@ const EditCategory = () => {
                       </div>
                     </div>
 
-                    <div className="form-group col-md-6">
+                    {/* <div className="form-group col-md-6">
                       <label
                         className="col-md-12 control-label"
                         htmlFor="filebutton"
@@ -164,7 +164,7 @@ const EditCategory = () => {
                           type="file"
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="form-group col-md-6 pl-0">

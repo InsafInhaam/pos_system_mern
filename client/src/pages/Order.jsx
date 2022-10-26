@@ -62,13 +62,13 @@ const Order = () => {
                 <h1 className="h3 mb-0 text-gray-800">POS Orders</h1>
               </div>
               <div className="row">
-                <div className="col-md-12 d-flex align-items-center px-2 py-3">
+                <div className="col-md-12 d-flex align-items-center px-2 py-3 flex-wrap">
                   <button
                     onClick={() => setActiveCategory("all")}
                     className={
                       activeCategory == "all"
-                        ? "d-none border-0 d-sm-inline-block shadow-sm mx-2 btn-order-cart active"
-                        : "d-none border-0 d-sm-inline-block shadow-sm mx-2 btn-order-cart"
+                        ? "d-none border-0 d-sm-inline-block shadow-sm mx-2 mb-2 btn-order-cart active"
+                        : "d-none border-0 d-sm-inline-block shadow-sm mx-2 mb-2 btn-order-cart"
                     }
                   >
                     All
@@ -80,8 +80,8 @@ const Order = () => {
                         key={key}
                         className={
                           activeCategory == catItem.name
-                            ? "d-none border-0 d-sm-inline-block shadow-sm mx-2 btn-order-cart active"
-                            : "d-none border-0 d-sm-inline-block shadow-sm mx-2 btn-order-cart"
+                            ? "d-none border-0 d-sm-inline-block shadow-sm mb-2 mx-2 btn-order-cart active"
+                            : "d-none border-0 d-sm-inline-block shadow-sm mb-2 mx-2 btn-order-cart"
                         }
                       >
                         {catItem.name}

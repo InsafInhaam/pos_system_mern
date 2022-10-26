@@ -9,25 +9,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../api/product";
 import { Categories } from "../api/category";
+import { useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {
+  let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [fetchcategory, setFetchCategory] = useState([]);
-  // const [state, setState] = useState({
-  //   name: "",
-  //   description: "",
-  //   price: "",
-  //   category: "",
-  //   quantity: "",
-  //   weight: "",
-  //   color: "",
-  //   size: "",
-  //   status: "",
-  //   discount: "",
-  //   tax: "",
-  //   dimension: "",
-  //   image: "",
-  // });
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -41,23 +29,6 @@ const CreateProduct = () => {
   const [tax, setTax] = useState("");
   const [dimension, setDimension] = useState("");
   const [image, setImage] = useState("");
-
-  console.log(image);
-  // const {
-  //   name,
-  // description,
-  // price,
-  // category,
-  // quantity,
-  // weight,
-  // color,
-  // size,
-  // status,
-  // discount,
-  // tax,
-  // dimension,
-  // image,
-  // } = state;
 
   const onChangeFile = (e) => {
     setImage(e.target.files[0]);
@@ -81,7 +52,7 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !category || !description || !price || !quantity) {
+    if (!name || !category || !description || !price || !quantity || !image) {
       toast.error("Please provide all the required fields");
     } else {
       setLoading(true);
@@ -89,16 +60,12 @@ const CreateProduct = () => {
         if (response.status === 201) {
           toast.success("Product created successfully");
           setLoading(false);
+          navigate("/products");
         } else {
           toast.error(response.data);
         }
       });
     }
-  };
-
-  const handleInputChange = (e) => {
-    // let { name, value } = e.target;
-    // setState({ ...state, [name]: value });
   };
 
   useEffect(() => {
@@ -349,16 +316,16 @@ const CreateProduct = () => {
                         Status
                       </label>
                       <div className="col-md-12">
-                        <input
+                        <select
                           id="product_status"
                           name="status"
-                          placeholder="Status"
-                          className="form-control input-md"
-                          required=""
-                          type="text"
+                          className="form-control"
                           value={status}
                           onChange={(e) => setStatus(e.target.value)}
-                        />
+                        >
+                          <option value="available">Available</option>
+                          <option value="outOfStock">Out of Stock</option>
+                        </select>
                       </div>
                     </div>
                   </div>

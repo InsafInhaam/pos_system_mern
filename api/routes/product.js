@@ -22,7 +22,9 @@ const upload = multer({ storage: storage });
 
 router.post("/product/create", upload.single("image"), create);
 
-router.route("/product/update/:id").put(update);
+router.put("/product/update/:id", upload.single("image"), update);
+
+// router.route("/product/update/:id").put(update);
 
 router.route("/product/delete/:id").delete(deleteProduct);
 
