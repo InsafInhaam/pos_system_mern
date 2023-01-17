@@ -223,6 +223,7 @@ const Registration = () => {
                                   value={lastName}
                                   onChange={handleInputChange}
                                 />
+                              
                               </div>
                               {/* Email Address */}
                               <div className="input-group col-lg-12 mb-4">
